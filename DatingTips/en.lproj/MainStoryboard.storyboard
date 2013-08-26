@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="SN1-2K-6ha">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="u5e-NP-ogF">
+            <objects>
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="SN1-2K-6ha" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8QB-m2-Xee">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="JfQ-YB-pkE"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bl2-m1-21w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-296" y="56"/>
+        </scene>
+        <!--Loading View Controller-->
+        <scene sceneID="5">
+            <objects>
+                <viewController id="2" customClass="LoadingViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="iyB-EF-cIz">
+                                <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" id="1Xm-Yi-yNJ" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cny-h9-avn">
+                                        <rect key="frame" x="53" y="485" width="217" height="59"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
+                                        <state key="normal" title="Show Me A Tip" backgroundImage="ButtonNormal.png">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted" title="Show Me A Tip" backgroundImage="ButtonSelected.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="trI-7k-4YZ" kind="push" identifier="ShowHomeViewControllerSegue" id="EK1-V7-c3u"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Logo.png" id="wLz-1h-MKU">
+                                        <rect key="frame" x="53" y="13" width="215" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="SexyImage.png" id="shu-Mi-Mj5">
+                                        <rect key="frame" x="53" y="121" width="217" height="217"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="U8p-xa-RkV"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="iyB-EF-cIz" id="rB5-nz-6Os"/>
+                        <outlet property="contentView" destination="1Xm-Yi-yNJ" id="Ldc-mW-Fp0"/>
+                        <outlet property="showMeATipButton" destination="cny-h9-avn" id="a7V-fD-8kT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="348" y="56"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="8ZX-Hb-Y72">
+            <objects>
+                <viewController id="trI-7k-4YZ" customClass="HomeViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="guD-bE-aIb">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="T7T-zo-vaS">
+                                <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </imageView>
+                            <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ene-Vc-1Zl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="trI-7k-4YZ" id="fwe-zI-goQ"/>
+                                    <outlet property="delegate" destination="trI-7k-4YZ" id="2fm-Qq-ckn"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="GOM-gL-Cjm"/>
+                    <connections>
+                        <outlet property="backgroundView" destination="T7T-zo-vaS" id="anh-lN-r1G"/>
+                        <outlet property="tableView" destination="ene-Vc-1Zl" id="Gr5-Kg-TA1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7dt-wY-swL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1236" y="-28"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ButtonNormal.png" width="217" height="59"/>
+        <image name="ButtonSelected.png" width="217" height="59"/>
+        <image name="Logo.png" width="215" height="100"/>
+        <image name="SexyImage.png" width="217" height="217"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
