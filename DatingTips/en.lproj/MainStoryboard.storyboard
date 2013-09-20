@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="SN1-2K-6ha">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12E55" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="SN1-2K-6ha">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -23,20 +24,24 @@
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="LoadingViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="orq-lt-wfF"/>
+                        <viewControllerLayoutGuide type="bottom" id="5WK-32-Jba"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="iyB-EF-cIz">
-                                <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iyB-EF-cIz">
+                                <rect key="frame" x="0.0" y="-20" width="320" height="588"/>
                                 <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                             </imageView>
-                            <view contentMode="scaleToFill" id="1Xm-Yi-yNJ" userLabel="Content View">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Xm-Yi-yNJ" userLabel="Content View">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cny-h9-avn">
-                                        <rect key="frame" x="53" y="485" width="217" height="59"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cny-h9-avn">
+                                        <rect key="frame" x="52" y="497" width="217" height="59"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                                         <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                                         <state key="normal" title="Show Me A Tip" backgroundImage="ButtonNormal.png">
@@ -50,19 +55,42 @@
                                             <segue destination="trI-7k-4YZ" kind="push" identifier="ShowHomeViewControllerSegue" id="EK1-V7-c3u"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Logo.png" id="wLz-1h-MKU">
-                                        <rect key="frame" x="53" y="13" width="215" height="100"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="wLz-1h-MKU">
+                                        <rect key="frame" x="53" y="20" width="215" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="100" id="POV-Ch-V4h"/>
+                                            <constraint firstAttribute="width" constant="215" id="zDq-fL-gBl"/>
+                                        </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="SexyImage.png" id="shu-Mi-Mj5">
-                                        <rect key="frame" x="53" y="121" width="217" height="217"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="SexyImage.png" translatesAutoresizingMaskIntoConstraints="NO" id="shu-Mi-Mj5">
+                                        <rect key="frame" x="53" y="175" width="217" height="217"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="217" id="Eid-x4-OjT"/>
+                                            <constraint firstAttribute="height" constant="217" id="LhE-2w-S6T"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="cny-h9-avn" secondAttribute="centerX" id="66I-cS-Y3V"/>
+                                    <constraint firstItem="wLz-1h-MKU" firstAttribute="top" secondItem="1Xm-Yi-yNJ" secondAttribute="top" constant="20" id="G1N-6f-fkA"/>
+                                    <constraint firstAttribute="trailing" secondItem="wLz-1h-MKU" secondAttribute="trailing" constant="52" id="c7z-yB-VY5"/>
+                                    <constraint firstAttribute="centerY" secondItem="shu-Mi-Mj5" secondAttribute="centerY" id="dPz-Sk-Sfp"/>
+                                    <constraint firstAttribute="bottom" secondItem="cny-h9-avn" secondAttribute="bottom" constant="12" id="iyB-T7-jeU"/>
+                                    <constraint firstItem="wLz-1h-MKU" firstAttribute="leading" secondItem="1Xm-Yi-yNJ" secondAttribute="leading" constant="53" id="kY6-gG-8br"/>
+                                    <constraint firstAttribute="centerX" secondItem="shu-Mi-Mj5" secondAttribute="centerX" constant="-1.5" id="l2l-5h-Dpc"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="1Xm-Yi-yNJ" secondAttribute="trailing" id="N7j-PB-zIp"/>
+                            <constraint firstItem="5WK-32-Jba" firstAttribute="top" secondItem="1Xm-Yi-yNJ" secondAttribute="bottom" id="ljW-jP-28c"/>
+                            <constraint firstItem="1Xm-Yi-yNJ" firstAttribute="top" secondItem="3" secondAttribute="top" id="nWF-KH-QCh"/>
+                            <constraint firstItem="1Xm-Yi-yNJ" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="nZZ-WV-Zss"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="U8p-xa-RkV"/>
                     <connections>
@@ -73,23 +101,27 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="348" y="56"/>
+            <point key="canvasLocation" x="260" y="35"/>
         </scene>
         <!--Home View Controller-->
         <scene sceneID="8ZX-Hb-Y72">
             <objects>
                 <viewController id="trI-7k-4YZ" customClass="HomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3Wo-kS-xC2"/>
+                        <viewControllerLayoutGuide type="bottom" id="dhP-Ad-w7b"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="guD-bE-aIb">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="T7T-zo-vaS">
-                                <rect key="frame" x="0.0" y="-20" width="320" height="568"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="T7T-zo-vaS">
+                                <rect key="frame" x="0.0" y="-20" width="320" height="588"/>
                                 <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </imageView>
-                            <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ene-Vc-1Zl">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                            <tableView contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ene-Vc-1Zl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>

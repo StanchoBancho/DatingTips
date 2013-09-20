@@ -31,7 +31,7 @@
     UINavigationController* navigationViewController = (UINavigationController*)self.window.rootViewController;
     [navigationViewController popToRootViewControllerAnimated:NO];
     [navigationViewController setDelegate:self];
-    [self.window makeKeyAndVisible];
+   // [self.window makeKeyAndVisible];
 
     //setup the banner view
     self.bannerView = [[ADBannerView alloc] init];
@@ -103,7 +103,7 @@
 
 - (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
 {
-    NSLog(@"%s",__FUNCTION__);
+    NSLog(@"%s %@",__FUNCTION__, error);
     [self.currentController hideBannerView:banner];
 }
 

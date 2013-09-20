@@ -15,7 +15,7 @@ static CommunicationManager* sharedManager = nil;
 
 @interface CommunicationManager ()
 
-@property (nonatomic, assign) dispatch_queue_t workingQueue;
+@property (nonatomic, strong) dispatch_queue_t workingQueue;
 @property (nonatomic, strong) NSString* password;
 @property (nonatomic, strong) NSString* sessionId;
 @end
