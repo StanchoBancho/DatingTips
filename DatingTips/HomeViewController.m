@@ -79,7 +79,7 @@
     cell = [tableView dequeueReusableCellWithIdentifier:@"TipCell"];
     
     NSString* title = [self.dataSource objectAtIndex:[indexPath row]];
-    [(TipCell*)cell  setupCellWithTip:title];
+    [(TipCell*)cell setupCellWithTip:title];
     return cell;
 }
 

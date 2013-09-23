@@ -22,7 +22,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
-                                    <segue destination="SN1-2K-6ha" kind="embed" id="15K-kh-PvI"/>
+                                    <segue destination="SN1-2K-6ha" kind="embed" identifier="" id="15K-kh-PvI"/>
                                 </connections>
                             </containerView>
                         </subviews>

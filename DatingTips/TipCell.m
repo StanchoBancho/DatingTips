@@ -7,7 +7,7 @@
 //
 
 #import "TipCell.h"
-
+#import <CoreText/CoreText.h>
 #define textViewOffset 5.0f
 #define containerViewOriginY 35.0f
 #define textViewOriginY 50.0f
@@ -45,8 +45,9 @@
 -(void)setupCellWithTip:(NSString*)tipTitle
 {
     //set the text view
-    UIFont* font = [UIFont systemFontOfSize:14.0f];
-    CGSize sizeOfTextField = [tipTitle sizeWithFont:font constrainedToSize:CGSizeMake(190.0f, CGFLOAT_MAX)lineBreakMode:NSLineBreakByTruncatingTail];
+    [self.tipTextView setText:tipTitle];
+    CGSize sizeOfTextField = [self.tipTextView sizeThatFits:CGSizeMake(190.0f, CGFLOAT_MAX)];
+    
     [self.tipTextView setText:tipTitle];
     CGRect frame = self.tipTextView.frame;
     frame.size.height = sizeOfTextField.height + textViewOffset;
@@ -60,14 +61,26 @@
     CGRect tagsLabelFrame = self.tagsLabel.frame;
     tagsLabelFrame.origin.y = containerViewOriginY + self.tipContainer.frame.size.height + spaceBetweenContainerAndTagsLabel;
     self.tagsLabel.frame = tagsLabelFrame;
-    
 }
 
 +(CGFloat)cellHeightForTip:(NSString*)tipTitle
 {
-    UIFont* font = [UIFont systemFontOfSize:14.0f];
-    CGSize sizeOfTextField = [tipTitle sizeWithFont:font constrainedToSize:CGSizeMake(190.0f, CGFLOAT_MAX)];
+    NSAttributedString* attrSting = [[NSAttributedString alloc]initWithString:tipTitle];
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attrSting);
+    CGSize targetSize = CGSizeMake(190, CGFLOAT_MAX);
+    CGSize sizeOfTextField = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [attrSting length]), NULL, targetSize, NULL);
+    CFRelease(framesetter);
+    
+//    NSAttributedString *string = [[NSAttributedString alloc]initWithString:tipTitle];
+//    string boundingRectWithSize:CGSizeMake(190.0f, CGFLOAT_MAX) options:nsst context:<#(NSStringDrawingContext *)#>
+// //   UIFont* font = [UIFont systemFontOfSize:14.0f];
+//    [self.tipTextView setText:tipTitle];
+//    CGSize sizeOfTextField = [self.tipTextView sizeThatFits:CGSizeMake(190.0f, CGFLOAT_MAX)]; //[tipTitle sizeWithFont:font constrainedToSize:CGSizeMake(190.0f, CGFLOAT_MAX)];
     CGFloat result = containerViewOriginY + textViewOriginY + sizeOfTextField.height + textViewOffset + containerViewSpaceToBottom;
+
+    return 240;
+    
     return result;
+
 }
 @end

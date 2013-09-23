@@ -10,6 +10,7 @@
 		2E00559A1754BFD50098A8DD /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0055991754BFD50098A8DD /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2E00559D1754C2AB0098A8DD /* NSString+Hashing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E00559C1754C2AB0098A8DD /* NSString+Hashing.m */; };
 		2E127F7017F0CC2B00F2318E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E127F6F17F0CC2B00F2318E /* Images.xcassets */; };
+		2E127F7217F0EE5900F2318E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E127F7117F0EE5900F2318E /* CoreText.framework */; };
 		2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E43963B173EA6CD0009C422 /* iAd.framework */; };
 		2EB27861173F969A00726890 /* BuyTipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB27860173F969A00726890 /* BuyTipCell.m */; };
 		2EB27863173F998400726890 /* BuyTipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EB27862173F998400726890 /* BuyTipCell.xib */; };
@@ -50,6 +51,7 @@
 		2E00559C1754C2AB0098A8DD /* NSString+Hashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hashing.m"; sourceTree = "<group>"; };
 		2E00559E1754C95D0098A8DD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2E127F6F17F0CC2B00F2318E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2E127F7117F0EE5900F2318E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2E43963B173EA6CD0009C422 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2EB2785F173F969A00726890 /* BuyTipCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTipCell.h; sourceTree = "<group>"; };
 		2EB27860173F969A00726890 /* BuyTipCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTipCell.m; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E127F7217F0EE5900F2318E /* CoreText.framework in Frameworks */,
 				2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */,
 				2EEC699A173E8C21007200A4 /* UIKit.framework in Frameworks */,
 				2EEC699C173E8C21007200A4 /* Foundation.framework in Frameworks */,
@@ -174,6 +177,7 @@
 		2EEC6998173E8C21007200A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E127F7117F0EE5900F2318E /* CoreText.framework */,
 				2E43963B173EA6CD0009C422 /* iAd.framework */,
 				2EEC6999173E8C21007200A4 /* UIKit.framework */,
 				2EEC699B173E8C21007200A4 /* Foundation.framework */,

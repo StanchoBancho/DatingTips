@@ -7,22 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "iAd/iAd.h"
-@protocol BannerViewContainer <NSObject>
 
--(void)showBannerView:(ADBannerView*)bannerView;
--(void)hideBannerView:(ADBannerView*)bannerView;
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@optional
-
--(void)banerViewActionWillBegin;
--(void)banerViewActionDidFinish;
-
-@end
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate, ADBannerViewDelegate>
-
-@property (assign, nonatomic, readonly) BOOL isIphone5;
 @property (strong, nonatomic) UIWindow *window;
 
 @end
