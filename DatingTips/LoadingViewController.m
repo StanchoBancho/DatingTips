@@ -11,7 +11,6 @@
 #import "HomeViewController.h"
 
 @interface LoadingViewController ()
-@property(nonatomic, strong) IBOutlet UIImageView* backgroundView;
 @property(nonatomic, strong) IBOutlet UIButton* showMeATipButton;
 @property(nonatomic, strong) NSArray* tips;
 @end
@@ -23,16 +22,12 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
 
-    UIImage* background = nil;
-    background = [UIImage imageNamed:@"Default"];
-   
-    [self.backgroundView setImage:background];
-
     UIFont* buttonFont = [UIFont fontWithName:@"Fishfingers" size:36];
     [self.showMeATipButton.titleLabel setFont:buttonFont];
     [self.showMeATipButton setHidden:YES];
 	// Do any additional setup after loading the view, typically from a nib.
     [self startSession];
+   
 
 }
 
@@ -61,6 +56,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"ShowHomeViewControllerSegue"]){
+      //  self.tips = @[@"       asdsa 234234 ewrafsasf asasdasd asdasdad dwadawc zdsdgs awawdas asgsag  asfasf  asasdsad  dasdaw  wawaegh  asfassdg a asawh  ssss sss twahws ssdas"];
         [(HomeViewController*)segue.destinationViewController setDataSource:self.tips];
     }
 }

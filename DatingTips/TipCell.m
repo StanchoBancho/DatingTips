@@ -45,14 +45,21 @@
 -(void)setupCellWithTip:(NSString*)tipTitle
 {
     //set the text view
-    [self.tipTextView setText:tipTitle];
-    CGSize sizeOfTextField = [self.tipTextView sizeThatFits:CGSizeMake(190.0f, CGFLOAT_MAX)];
+    [self.tipTextLabel setText:tipTitle];
+    CGSize sizeOfTextField = CGSizeZero;
+    if([tipTitle respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]){
+        NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:self.tipTextLabel.font, NSFontAttributeName, nil];
+        sizeOfTextField = [tipTitle boundingRectWithSize:CGSizeMake(190.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributesDictionary context:nil].size;
+    }
+    else{
+        sizeOfTextField = [tipTitle sizeWithFont:self.tipTextLabel.font constrainedToSize:CGSizeMake(190.0f, CGFLOAT_MAX)];
+    }
     
-    [self.tipTextView setText:tipTitle];
-    CGRect frame = self.tipTextView.frame;
-    frame.size.height = sizeOfTextField.height + textViewOffset;
-    CGFloat difference = frame.size.height - self.tipTextView.frame.size.height;
-    self.tipTextView.frame = frame;
+    [self.tipTextLabel setText:tipTitle];
+    CGRect frame = self.tipTextLabel.frame;
+    frame.size.height = sizeOfTextField.height ;
+    CGFloat difference = frame.size.height - self.tipTextLabel.frame.size.height;
+    self.tipTextLabel.frame = frame;
     
     //set the container
     [self addValue:difference toHeightOfView:self.tipContainer];
@@ -65,21 +72,16 @@
 
 +(CGFloat)cellHeightForTip:(NSString*)tipTitle
 {
-    NSAttributedString* attrSting = [[NSAttributedString alloc]initWithString:tipTitle];
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attrSting);
-    CGSize targetSize = CGSizeMake(190, CGFLOAT_MAX);
-    CGSize sizeOfTextField = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [attrSting length]), NULL, targetSize, NULL);
-    CFRelease(framesetter);
-    
-//    NSAttributedString *string = [[NSAttributedString alloc]initWithString:tipTitle];
-//    string boundingRectWithSize:CGSizeMake(190.0f, CGFLOAT_MAX) options:nsst context:<#(NSStringDrawingContext *)#>
-// //   UIFont* font = [UIFont systemFontOfSize:14.0f];
-//    [self.tipTextView setText:tipTitle];
-//    CGSize sizeOfTextField = [self.tipTextView sizeThatFits:CGSizeMake(190.0f, CGFLOAT_MAX)]; //[tipTitle sizeWithFont:font constrainedToSize:CGSizeMake(190.0f, CGFLOAT_MAX)];
-    CGFloat result = containerViewOriginY + textViewOriginY + sizeOfTextField.height + textViewOffset + containerViewSpaceToBottom;
-
-    return 240;
-    
+   UIFont* font = [UIFont systemFontOfSize:14.0f];
+    CGSize sizeOfTextField = CGSizeZero;
+    if([tipTitle respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]){
+        NSDictionary *attributesDictionary = [NSDictionary dictionaryWithObjectsAndKeys:font, NSFontAttributeName, nil];
+        sizeOfTextField = [tipTitle boundingRectWithSize:CGSizeMake(190.0f, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributesDictionary context:nil].size;
+    }
+    else{
+        sizeOfTextField = [tipTitle sizeWithFont:font constrainedToSize:CGSizeMake(190.0f, CGFLOAT_MAX)];
+    }
+    CGFloat result = containerViewOriginY + textViewOriginY + sizeOfTextField.height + textViewOffset + containerViewSpaceToBottom ;
     return result;
 
 }

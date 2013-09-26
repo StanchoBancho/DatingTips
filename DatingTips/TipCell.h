@@ -10,7 +10,7 @@
 
 @interface TipCell : UITableViewCell
 
-@property (nonatomic, strong) IBOutlet UITextView* tipTextView;
+@property (nonatomic, strong) IBOutlet UILabel* tipTextLabel;
 @property (nonatomic, strong) IBOutlet UIImageView* tipContainerBackground;
 @property (nonatomic, strong) IBOutlet UIView* tipContainer;
 @property (nonatomic, strong) IBOutlet UILabel* dayLabel;

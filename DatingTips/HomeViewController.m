@@ -15,7 +15,6 @@
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
-@property(nonatomic, strong) IBOutlet UIImageView* backgroundView;
 @property (nonatomic, strong) NSDateFormatter* dateFormatter;
 @end
 
