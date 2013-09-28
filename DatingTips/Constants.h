@@ -10,8 +10,7 @@
 #define FCCONSTANTS_HH
 
 #define kURLAskForPassword @"http://darkstar.weblunatix.net/tisho/tips/register"
-#define kAppSecret @"golqma_taina"
-
+#define kPassCryptKey @"MainStoryboard.storyboard"
 #define kURLStartSession @"http://darkstar.weblunatix.net/tisho/tips/start_session"
 #define kURLGetTips @"http://darkstar.weblunatix.net/tisho/tips/get_tips"
 

@@ -7,11 +7,12 @@
 //
 
 #import "CommunicationManager.h"
-#include "OpenUDID.h"
 #import "NSString+Hashing.h"
 #import "Constants.h"
+#import "NSData+AES.h"
 
 static CommunicationManager* sharedManager = nil;
+NSString* urlSecret;
 
 @interface CommunicationManager ()
 
@@ -31,6 +32,7 @@ static CommunicationManager* sharedManager = nil;
             }
         }
     }
+    
     return sharedManager;
 }
 
@@ -47,6 +49,16 @@ static CommunicationManager* sharedManager = nil;
     self = [super init];
     if (self) {
         self.workingQueue = dispatch_queue_create("DownloadingQueue", DISPATCH_QUEUE_SERIAL);
+     
+        
+        NSString* path = [[NSBundle mainBundle] pathForResource:@"default" ofType:@""];
+        NSData* decodedData = [NSData dataWithContentsOfFile:path];
+        NSData* ecryptedData =[decodedData decryptWithString:kPassCryptKey];
+        urlSecret = [[NSString alloc] initWithData:ecryptedData encoding:NSUTF8StringEncoding];
+        NSLog(@"S appsecret data is %@", urlSecret);
+
+        
+        //ask for saved token from the server if there is any
         NSString* myExistingPass =[[NSUserDefaults standardUserDefaults] objectForKey:@"pass"];
         if(myExistingPass){
             self.password = myExistingPass;
@@ -63,8 +75,8 @@ static CommunicationManager* sharedManager = nil;
     NSURL* url = [NSURL URLWithString:kURLAskForPassword];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
-    NSString* deviceId = [OpenUDID value];
-    NSString* appSecret = [[NSString stringWithFormat:@"%@%@", deviceId, kAppSecret] stingToSHA1];
+    NSString* deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString* appSecret = [[NSString stringWithFormat:@"%@%@", deviceId, urlSecret] stingToSHA1];
     NSString* bodyString = [NSString stringWithFormat:@"id=%@&appSecret=%@",deviceId, appSecret];
     [request setValue:[NSString stringWithFormat:@"%d", [bodyString length]] forHTTPHeaderField:@"Content-lenght"];
     [request setHTTPBody:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];
@@ -106,7 +118,7 @@ static CommunicationManager* sharedManager = nil;
     NSURL* url = [NSURL URLWithString:kURLStartSession];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
-    NSString* deviceId = [OpenUDID value];
+    NSString* deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString* deviceIdAndPassSha1 = [[NSString stringWithFormat:@"%@%@", deviceId, self.password] stingToSHA1];
     NSString* bodyString = [NSString stringWithFormat:@"user=%@&pass=%@",deviceId, deviceIdAndPassSha1];
     [request setValue:[NSString stringWithFormat:@"%d", [bodyString length]] forHTTPHeaderField:@"Content-lenght"];

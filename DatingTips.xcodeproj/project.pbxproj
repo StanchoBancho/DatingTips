@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E00559A1754BFD50098A8DD /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E0055991754BFD50098A8DD /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2E00559D1754C2AB0098A8DD /* NSString+Hashing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E00559C1754C2AB0098A8DD /* NSString+Hashing.m */; };
 		2E127F7017F0CC2B00F2318E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E127F6F17F0CC2B00F2318E /* Images.xcassets */; };
 		2E127F7217F0EE5900F2318E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E127F7117F0EE5900F2318E /* CoreText.framework */; };
+		2E1992A617F74A3F00C1CD4B /* default in Resources */ = {isa = PBXBuildFile; fileRef = 2E1992A517F74A3F00C1CD4B /* default */; };
 		2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E43963B173EA6CD0009C422 /* iAd.framework */; };
+		2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA6D5C717F712F300D5D358 /* cipher.m */; };
+		2EA6D5CB17F712F300D5D358 /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA6D5C917F712F300D5D358 /* NSData+AES.m */; };
 		2EB27861173F969A00726890 /* BuyTipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB27860173F969A00726890 /* BuyTipCell.m */; };
 		2EB27863173F998400726890 /* BuyTipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EB27862173F998400726890 /* BuyTipCell.xib */; };
 		2EBECB50173EDC5700C21E7B /* TipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EBECB4F173EDC5700C21E7B /* TipCell.xib */; };
@@ -45,14 +47,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2E0055981754BFD50098A8DD /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
-		2E0055991754BFD50098A8DD /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		2E00559B1754C2AB0098A8DD /* NSString+Hashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hashing.h"; sourceTree = "<group>"; };
 		2E00559C1754C2AB0098A8DD /* NSString+Hashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hashing.m"; sourceTree = "<group>"; };
 		2E00559E1754C95D0098A8DD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2E127F6F17F0CC2B00F2318E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2E127F7117F0EE5900F2318E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		2E1992A517F74A3F00C1CD4B /* default */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default; sourceTree = "<group>"; };
 		2E43963B173EA6CD0009C422 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		2EA6D5C617F712F300D5D358 /* cipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cipher.h; sourceTree = "<group>"; };
+		2EA6D5C717F712F300D5D358 /* cipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cipher.m; sourceTree = "<group>"; };
+		2EA6D5C817F712F300D5D358 /* NSData+AES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+AES.h"; sourceTree = "<group>"; };
+		2EA6D5C917F712F300D5D358 /* NSData+AES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+AES.m"; sourceTree = "<group>"; };
 		2EB2785F173F969A00726890 /* BuyTipCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTipCell.h; sourceTree = "<group>"; };
 		2EB27860173F969A00726890 /* BuyTipCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTipCell.m; sourceTree = "<group>"; };
 		2EB27862173F998400726890 /* BuyTipCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BuyTipCell.xib; sourceTree = "<group>"; };
@@ -122,6 +127,17 @@
 				2EB27862173F998400726890 /* BuyTipCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		2EA6D5C517F712E100D5D358 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				2EA6D5C617F712F300D5D358 /* cipher.h */,
+				2EA6D5C717F712F300D5D358 /* cipher.m */,
+				2EA6D5C817F712F300D5D358 /* NSData+AES.h */,
+				2EA6D5C917F712F300D5D358 /* NSData+AES.m */,
+			);
+			name = Additions;
 			sourceTree = "<group>";
 		};
 		2ED9D410174C0ED10088287B /* Images */ = {
@@ -215,13 +231,13 @@
 		2EEC69BC173E8C60007200A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2E0055981754BFD50098A8DD /* OpenUDID.h */,
-				2E0055991754BFD50098A8DD /* OpenUDID.m */,
+				2EA6D5C517F712E100D5D358 /* Additions */,
 				2EEBC81B17538BE70039186C /* CommunicationManager.h */,
 				2EEBC81C17538BE70039186C /* CommunicationManager.m */,
 				2E00559B1754C2AB0098A8DD /* NSString+Hashing.h */,
 				2E00559C1754C2AB0098A8DD /* NSString+Hashing.m */,
 				2E00559E1754C95D0098A8DD /* Constants.h */,
+				2E1992A517F74A3F00C1CD4B /* default */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -321,6 +337,7 @@
 				2ED9D41B174C12F90088287B /* Logo@2x.png in Resources */,
 				2ED9D41F174C138F0088287B /* SexyImage.png in Resources */,
 				2ED9D420174C138F0088287B /* SexyImage@2x.png in Resources */,
+				2E1992A617F74A3F00C1CD4B /* default in Resources */,
 				2ED9D424174C15340088287B /* ButtonNormal.png in Resources */,
 				2ED9D425174C15340088287B /* ButtonNormal@2x.png in Resources */,
 				2ED9D428174C155E0088287B /* ButtonSelected.png in Resources */,
@@ -344,13 +361,14 @@
 			files = (
 				2EEC69A6173E8C21007200A4 /* main.m in Sources */,
 				2EEC69AA173E8C21007200A4 /* AppDelegate.m in Sources */,
+				2EA6D5CB17F712F300D5D358 /* NSData+AES.m in Sources */,
 				2EEC69B6173E8C21007200A4 /* LoadingViewController.m in Sources */,
 				2EEC69C1173E8D89007200A4 /* HomeViewController.m in Sources */,
 				2EFAFA5E17F033C80006D9FE /* BannerViewController.m in Sources */,
 				2EBECB53173EE05100C21E7B /* TipCell.m in Sources */,
 				2EB27861173F969A00726890 /* BuyTipCell.m in Sources */,
 				2EEBC81D17538BE70039186C /* CommunicationManager.m in Sources */,
-				2E00559A1754BFD50098A8DD /* OpenUDID.m in Sources */,
+				2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */,
 				2E00559D1754C2AB0098A8DD /* NSString+Hashing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -438,15 +456,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dimitar Dobrev (PMBE6NFJV7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dimitar Dobrev (PMBE6NFJV7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stanimir Nikolov (3W498KKCVT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Stanimir Nikolov (3W498KKCVT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DatingTips/DatingTips-Prefix.pch";
 				INFOPLIST_FILE = "DatingTips/DatingTips-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "EF5C91BD-3BE9-42B1-91EE-9A9A3AEF9FA2";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8107EB23-170C-40A1-83BB-B5E07BBA4A9A";
+				PROVISIONING_PROFILE = "997E8424-F74C-48FB-9AAE-E50F0F54203D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "997E8424-F74C-48FB-9AAE-E50F0F54203D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -456,15 +474,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dimitar Dobrev (PMBE6NFJV7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dimitar Dobrev (PMBE6NFJV7)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Stanimir Nikolov (3W498KKCVT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Stanimir Nikolov (3W498KKCVT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DatingTips/DatingTips-Prefix.pch";
 				INFOPLIST_FILE = "DatingTips/DatingTips-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8107EB23-170C-40A1-83BB-B5E07BBA4A9A";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8107EB23-170C-40A1-83BB-B5E07BBA4A9A";
+				PROVISIONING_PROFILE = "997E8424-F74C-48FB-9AAE-E50F0F54203D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "997E8424-F74C-48FB-9AAE-E50F0F54203D";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
