@@ -11,6 +11,7 @@
 		2E127F7017F0CC2B00F2318E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E127F6F17F0CC2B00F2318E /* Images.xcassets */; };
 		2E127F7217F0EE5900F2318E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E127F7117F0EE5900F2318E /* CoreText.framework */; };
 		2E1992A617F74A3F00C1CD4B /* default in Resources */ = {isa = PBXBuildFile; fileRef = 2E1992A517F74A3F00C1CD4B /* default */; };
+		2E1992A817F75ECF00C1CD4B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1992A717F75ECF00C1CD4B /* StoreKit.framework */; };
 		2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E43963B173EA6CD0009C422 /* iAd.framework */; };
 		2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA6D5C717F712F300D5D358 /* cipher.m */; };
 		2EA6D5CB17F712F300D5D358 /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA6D5C917F712F300D5D358 /* NSData+AES.m */; };
@@ -53,6 +54,7 @@
 		2E127F6F17F0CC2B00F2318E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2E127F7117F0EE5900F2318E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2E1992A517F74A3F00C1CD4B /* default */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default; sourceTree = "<group>"; };
+		2E1992A717F75ECF00C1CD4B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2E43963B173EA6CD0009C422 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2EA6D5C617F712F300D5D358 /* cipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cipher.h; sourceTree = "<group>"; };
 		2EA6D5C717F712F300D5D358 /* cipher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cipher.m; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E1992A817F75ECF00C1CD4B /* StoreKit.framework in Frameworks */,
 				2E127F7217F0EE5900F2318E /* CoreText.framework in Frameworks */,
 				2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */,
 				2EEC699A173E8C21007200A4 /* UIKit.framework in Frameworks */,
@@ -193,6 +196,7 @@
 		2EEC6998173E8C21007200A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E1992A717F75ECF00C1CD4B /* StoreKit.framework */,
 				2E127F7117F0EE5900F2318E /* CoreText.framework */,
 				2E43963B173EA6CD0009C422 /* iAd.framework */,
 				2EEC6999173E8C21007200A4 /* UIKit.framework */,

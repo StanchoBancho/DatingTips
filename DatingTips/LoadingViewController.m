@@ -11,8 +11,11 @@
 #import "HomeViewController.h"
 
 @interface LoadingViewController ()
+
 @property(nonatomic, strong) IBOutlet UIButton* showMeATipButton;
 @property(nonatomic, strong) NSArray* tips;
+@property(nonatomic, strong) NSArray* paidTipsIds;
+
 @end
 
 @implementation LoadingViewController
@@ -26,13 +29,19 @@
     [self.showMeATipButton.titleLabel setFont:buttonFont];
     [self.showMeATipButton setHidden:YES];
 	// Do any additional setup after loading the view, typically from a nib.
-    [self startSession];
-   
-
 }
 
--(void)startSession
+-(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    [self downloadFreeTipsAndPaidTipsIds];
+}
+
+-(void)downloadFreeTipsAndPaidTipsIds
+{
+    //[CommunicationManager sharedProvider] getPayedTipsIdentifiers:<#^(NSArray *tips, NSError *error)completion#>
+    
+    
     [[CommunicationManager sharedProvider] getDailyTips:^(NSArray *tips, NSError *error) {
         if (tips) {
             NSMutableArray* newTips = [NSMutableArray arrayWithCapacity:tips.count];

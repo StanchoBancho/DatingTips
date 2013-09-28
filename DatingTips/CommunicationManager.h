@@ -12,5 +12,5 @@
 
 + (CommunicationManager*)sharedProvider;
 - (void)getDailyTips:(void(^)(NSArray* tips, NSError* error))completion;
-
+- (void)getPayedTipsIdentifiers:(void(^)(NSArray* tipsIds, NSError* error))completion;
 @end

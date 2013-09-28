@@ -10,15 +10,18 @@
 #import "NSString+Hashing.h"
 #import "Constants.h"
 #import "NSData+AES.h"
+#import <StoreKit/StoreKit.h>
 
 static CommunicationManager* sharedManager = nil;
 NSString* urlSecret;
 
-@interface CommunicationManager ()
+@interface CommunicationManager ()<SKProductsRequestDelegate>
 
 @property (nonatomic, strong) dispatch_queue_t workingQueue;
-@property (nonatomic, strong) NSString* password;
-@property (nonatomic, strong) NSString* sessionId;
+@property (atomic, strong) NSString* password;
+@property (atomic, strong) NSString* sessionId;
+@property (nonatomic, strong) void(^getTipsIdsCompletionBlock)(NSArray* tipsIds, NSError* error);
+
 @end
 
 @implementation CommunicationManager
@@ -49,14 +52,14 @@ NSString* urlSecret;
     self = [super init];
     if (self) {
         self.workingQueue = dispatch_queue_create("DownloadingQueue", DISPATCH_QUEUE_SERIAL);
-     
+        
         
         NSString* path = [[NSBundle mainBundle] pathForResource:@"default" ofType:@""];
         NSData* decodedData = [NSData dataWithContentsOfFile:path];
         NSData* ecryptedData =[decodedData decryptWithString:kPassCryptKey];
         urlSecret = [[NSString alloc] initWithData:ecryptedData encoding:NSUTF8StringEncoding];
         NSLog(@"S appsecret data is %@", urlSecret);
-
+        
         
         //ask for saved token from the server if there is any
         NSString* myExistingPass =[[NSUserDefaults standardUserDefaults] objectForKey:@"pass"];
@@ -175,37 +178,44 @@ NSString* urlSecret;
     return nil;
 }
 
+-(void)doOrdinarySecurityChecksAndRequestsIfNecessary:(NSError**)error
+{
+    NSError* passwordGetError = nil;
+    //get pass if we have not any
+    if(!self.password){
+        [self askForPassword:&passwordGetError];
+        if(!self.password || passwordGetError){
+            *error = passwordGetError;
+            return;
+        }
+    }
+    //get session id if we have not any
+    NSError* sessionIdGetError = nil;
+    if(!self.sessionId){
+        [self startSession:&sessionIdGetError];
+        if(!self.sessionId || sessionIdGetError){
+            *error = sessionIdGetError;
+            return;
+        }
+    }
+}
+
 #pragma mark - Public Methods
 
 - (void)getDailyTips:(void(^)(NSArray* tips, NSError* error))completion
 {
     dispatch_sync(self.workingQueue, ^{
         
-        //get pass if we have not any
-        if(!self.password){
-            NSError* passwordGetError = nil;
-            [self askForPassword:&passwordGetError];
-            if(!self.password || passwordGetError){
-                if(completion){
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(nil, passwordGetError);
-                    });
-                }
-                return;
+        //verify we have all the needed credentials
+        NSError* error = nil;
+        [self doOrdinarySecurityChecksAndRequestsIfNecessary:&error];
+        if (error) {
+            if(completion){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil, error);
+                });
             }
-        }
-        //get session id if we have not any
-        if(!self.sessionId){
-            NSError* sessionIdGetError = nil;
-            [self startSession:&sessionIdGetError];
-            if(!self.sessionId || sessionIdGetError){
-                if(completion){
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(nil, sessionIdGetError);
-                    });
-                }
-                return;
-            }
+            return;
         }
         
         //download tips
@@ -227,4 +237,79 @@ NSString* urlSecret;
         }
     });
 }
+
+- (void)getPayedTipsIdentifiers:(void(^)(NSArray* tipsIds, NSError* error))completion
+{
+    dispatch_sync(self.workingQueue, ^{
+        
+        //verify we have all the needed credentials
+        NSError* error = nil;
+        [self doOrdinarySecurityChecksAndRequestsIfNecessary:&error];
+        if (error) {
+            if(completion){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil, error);
+                });
+            }
+            return;
+        }
+        
+        //download tip identifiers
+#warning TO USE NOT DOWNLOAD TIPS BUT DOWNLOAD TIPS IDS METHOD
+        NSError* downloadingTipsError = nil;
+        NSArray* tipsIds = [self downloadTips:&downloadingTipsError];
+        if(!tipsIds || downloadingTipsError){
+            if(completion){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    completion(nil, downloadingTipsError);
+                });
+            }
+        }
+        else{
+            //ok we have the ids, veryfy them
+            if(completion){
+                if(!self.getTipsIdsCompletionBlock){
+                    self.getTipsIdsCompletionBlock = completion;
+                    [self validateProductIdentifiers:tipsIds];
+                }
+                else{
+                    NSError *e =[NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"Cannot get tips ids twice at the same time... We are currently getting them"}];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        completion(nil, e);
+                    });
+                }
+            }
+        }
+    });
+}
+
+#pragma mark - Store Kit
+
+-(void)validateProductIdentifiers:(NSArray *)productIdentifiers
+{
+    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productIdentifiers]];
+    productsRequest.delegate = self;
+    [productsRequest start];
+}
+
+// SKProductsRequestDelegate protocol method
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
+{
+    //self.products = response.products;
+    BOOL areTipsOk = YES;
+    for (NSString * invalidProductIdentifier in response.invalidProductIdentifiers) {
+        // Handle any invalid product identifiers.
+        areTipsOk = NO;
+    }
+    
+    if(areTipsOk){
+        self.getTipsIdsCompletionBlock(response.products, nil);
+    }
+    else{
+         NSError *e =[NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"The tips' ids are not valid"}];
+        self.getTipsIdsCompletionBlock(nil, e);
+    }
+    self.getTipsIdsCompletionBlock = nil;
+}
+
 @end
