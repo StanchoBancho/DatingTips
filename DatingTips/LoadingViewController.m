@@ -13,6 +13,7 @@
 @interface LoadingViewController ()
 
 @property(nonatomic, strong) IBOutlet UIButton* showMeATipButton;
+@property (strong, nonatomic) IBOutlet UIButton *historyButton;
 @property(nonatomic, strong) NSArray* tips;
 @property(nonatomic, strong) NSArray* paidTipsIds;
 
@@ -25,16 +26,21 @@
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
 
-    UIFont* buttonFont = [UIFont fontWithName:@"Fishfingers" size:36];
+    UIFont* buttonFont = [UIFont fontWithName:@"Fishfingers" size:28];
     [self.showMeATipButton.titleLabel setFont:buttonFont];
+    [self.historyButton.titleLabel setFont:buttonFont];
     [self.showMeATipButton setHidden:YES];
+    self.shouldDownloadAgainTipOfTheDay = YES;
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self downloadFreeTipsAndPaidTipsIds];
+    if(self.shouldDownloadAgainTipOfTheDay){
+        [self downloadFreeTipsAndPaidTipsIds];
+    }
+    self.shouldDownloadAgainTipOfTheDay = YES;
 }
 
 -(void)downloadFreeTipsAndPaidTipsIds

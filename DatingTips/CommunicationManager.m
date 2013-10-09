@@ -102,7 +102,9 @@ NSString* urlSecret;
                 NSString* password = [json objectForKey:@"pass"];
                 if(password){
                     [self setPassword:password];
-                    [[NSUserDefaults standardUserDefaults] setValue:password forKey:@"pass"];
+                    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+                    [defaults setValue:password forKey:@"pass"];
+                    [defaults synchronize];
                 }
                 else{
                     *error = [NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"We have some comunication problems. There is no password."}];

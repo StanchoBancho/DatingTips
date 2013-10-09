@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 #import "BuyTipCell.h"
 #import "TipCell.h"
+#import "LoadingViewController.h"
 
 #define kCellCount 2
 
@@ -35,6 +36,7 @@
     
     UINib* buyTipCellNib = [UINib nibWithNibName:@"BuyTipCell" bundle:nil];
     [self.tableView registerNib:buyTipCellNib forCellReuseIdentifier:@"BuyTipCell"];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -54,6 +56,13 @@
 {
     UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"In app purchase" message:@"Are you sure you want to buy another tip for $0.99" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
     [alertView show];
+}
+
+-(IBAction)backButtonPressed:(id)sender
+{
+    LoadingViewController* loadingVc = (LoadingViewController*)[self.navigationController.viewControllers firstObject];
+    [loadingVc setShouldDownloadAgainTipOfTheDay:NO];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table View Data Source

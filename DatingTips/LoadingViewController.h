@@ -10,4 +10,6 @@
 
 @interface LoadingViewController : UIViewController 
 
+@property(nonatomic, assign)BOOL shouldDownloadAgainTipOfTheDay;
+
 @end
