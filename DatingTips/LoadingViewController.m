@@ -55,6 +55,25 @@
                 [newTips addObject:[NSString stringWithFormat:@"          %@",tip]];
             }
             self.tips = newTips;
+            
+            //do some dummy store for the tips for now
+            NSUserDefaults* standardDefaults = [NSUserDefaults standardUserDefaults];
+            NSArray* currentTips = [standardDefaults objectForKey:@"all_tips"];
+            if(!currentTips){
+                [standardDefaults setObject:[self.tips copy] forKey:@"all_tips"];
+            }
+            else{
+                NSMutableArray* newCurrentTips = [NSMutableArray arrayWithArray:currentTips];
+                for (NSString* newTip in self.tips) {
+                    if(![newCurrentTips containsObject:newTip]){
+                        [newCurrentTips addObject:newTip];
+                    }
+                }
+                [standardDefaults setObject:newCurrentTips forKey:@"all_tips"];
+            }
+            BOOL sincResult = [standardDefaults synchronize];
+            
+            
             [UIView animateWithDuration:0.3 animations:^{
                 [self.showMeATipButton setHidden:NO];
             }];

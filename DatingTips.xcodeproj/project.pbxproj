@@ -10,6 +10,9 @@
 		2E00559D1754C2AB0098A8DD /* NSString+Hashing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E00559C1754C2AB0098A8DD /* NSString+Hashing.m */; };
 		2E127F7017F0CC2B00F2318E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E127F6F17F0CC2B00F2318E /* Images.xcassets */; };
 		2E127F7217F0EE5900F2318E /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E127F7117F0EE5900F2318E /* CoreText.framework */; };
+		2E15F38B18093B330052E6B5 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F38A18093B330052E6B5 /* CoreDataManager.m */; };
+		2E15F38E180953000052E6B5 /* BackArrorNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F38C180953000052E6B5 /* BackArrorNormal@2x.png */; };
+		2E15F38F180953000052E6B5 /* BackArrorNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F38D180953000052E6B5 /* BackArrorNormal.png */; };
 		2E1992A617F74A3F00C1CD4B /* default in Resources */ = {isa = PBXBuildFile; fileRef = 2E1992A517F74A3F00C1CD4B /* default */; };
 		2E1992A817F75ECF00C1CD4B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1992A717F75ECF00C1CD4B /* StoreKit.framework */; };
 		2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E43963B173EA6CD0009C422 /* iAd.framework */; };
@@ -56,6 +59,10 @@
 		2E00559E1754C95D0098A8DD /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		2E127F6F17F0CC2B00F2318E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2E127F7117F0EE5900F2318E /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		2E15F38918093B330052E6B5 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		2E15F38A18093B330052E6B5 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		2E15F38C180953000052E6B5 /* BackArrorNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackArrorNormal@2x.png"; sourceTree = "<group>"; };
+		2E15F38D180953000052E6B5 /* BackArrorNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackArrorNormal.png; sourceTree = "<group>"; };
 		2E1992A517F74A3F00C1CD4B /* default */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default; sourceTree = "<group>"; };
 		2E1992A717F75ECF00C1CD4B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2E43963B173EA6CD0009C422 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -175,6 +182,8 @@
 		2ED9D421174C14F80088287B /* Button */ = {
 			isa = PBXGroup;
 			children = (
+				2E15F38C180953000052E6B5 /* BackArrorNormal@2x.png */,
+				2E15F38D180953000052E6B5 /* BackArrorNormal.png */,
 				2ED9D422174C15340088287B /* ButtonNormal.png */,
 				2ED9D423174C15340088287B /* ButtonNormal@2x.png */,
 				2ED9D426174C155E0088287B /* ButtonSelected.png */,
@@ -245,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				2EA6D5C517F712E100D5D358 /* Additions */,
+				2E15F38918093B330052E6B5 /* CoreDataManager.h */,
+				2E15F38A18093B330052E6B5 /* CoreDataManager.m */,
 				2EEBC81B17538BE70039186C /* CommunicationManager.h */,
 				2EEBC81C17538BE70039186C /* CommunicationManager.m */,
 				2E00559B1754C2AB0098A8DD /* NSString+Hashing.h */,
@@ -350,8 +361,10 @@
 				2EBECB50173EDC5700C21E7B /* TipCell.xib in Resources */,
 				2EB27863173F998400726890 /* BuyTipCell.xib in Resources */,
 				2E127F7017F0CC2B00F2318E /* Images.xcassets in Resources */,
+				2E15F38E180953000052E6B5 /* BackArrorNormal@2x.png in Resources */,
 				2ED9D41A174C12F90088287B /* Logo.png in Resources */,
 				2ED9D41B174C12F90088287B /* Logo@2x.png in Resources */,
+				2E15F38F180953000052E6B5 /* BackArrorNormal.png in Resources */,
 				2ED9D41F174C138F0088287B /* SexyImage.png in Resources */,
 				2ED9D420174C138F0088287B /* SexyImage@2x.png in Resources */,
 				2E1992A617F74A3F00C1CD4B /* default in Resources */,
@@ -410,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2EEC69A6173E8C21007200A4 /* main.m in Sources */,
+				2E15F38B18093B330052E6B5 /* CoreDataManager.m in Sources */,
 				2EEC69AA173E8C21007200A4 /* AppDelegate.m in Sources */,
 				2EA6D5CB17F712F300D5D358 /* NSData+AES.m in Sources */,
 				2EEC69B6173E8C21007200A4 /* LoadingViewController.m in Sources */,
