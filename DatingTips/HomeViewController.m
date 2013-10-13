@@ -10,6 +10,7 @@
 #import "BuyTipCell.h"
 #import "TipCell.h"
 #import "LoadingViewController.h"
+#import <StoreKit/StoreKit.h>
 
 #define kCellCount 2
 
@@ -50,6 +51,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)setInAppPurchaseProducts:(NSArray *)inAppPurchaseProducts
+{
+    if(inAppPurchaseProducts){
+        _inAppPurchaseProducts = inAppPurchaseProducts;
+    }
+    else{
+        _inAppPurchaseProducts = @[];
+    }
+    [self.tableView reloadData];
+}
+
 #pragma mark - Action Methods
 
 -(IBAction)getAnotherButtonPressed:(id)sender
@@ -69,18 +81,24 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if([self.dataSource count] == 1){
-        return [self.dataSource count] + 1;
-    }
-    return [self.dataSource count];
+    NSInteger result = [self.dataSource count] + [self.inAppPurchaseProducts count];
+    return result;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = nil;
-    if(indexPath.row ==  [self.dataSource count] && [self shouldShowGetAnotherTipForToDay]){
+    if(indexPath.row >= [self.dataSource count]){
+        NSInteger indexInProducts = [indexPath row] - [self.dataSource count];
         cell = [tableView dequeueReusableCellWithIdentifier:@"BuyTipCell"];
         [[(BuyTipCell*)cell getAnotherButton] addTarget:self action:@selector(getAnotherButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+        
+        SKProduct* selectedProduct = self.inAppPurchaseProducts[indexInProducts];
+        NSString* buttonTitle = [NSString stringWithFormat:@"%@ - %.2f",selectedProduct.localizedTitle, selectedProduct.price.floatValue];
+        
+        [[(BuyTipCell*)cell getAnotherButton] setTitle:buttonTitle forState:UIControlStateNormal];
+        [[(BuyTipCell*)cell getAnotherButton] setTitle:buttonTitle forState:UIControlStateHighlighted];
+
         return cell;
     }
     
@@ -94,8 +112,8 @@
 #pragma mark - Table View Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row ==  [self.dataSource count] && [self shouldShowGetAnotherTipForToDay]){
-        return 60.0f;
+    if(indexPath.row >= [self.dataSource count]){
+        return 70.0f;
     }
     CGFloat result = [TipCell cellHeightForTip:self.dataSource[indexPath.row]];
     return result;
@@ -105,13 +123,13 @@
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 1){
-        //set that we buy a tip for today
-        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-        NSString* todayInString = [self.dateFormatter stringFromDate:[NSDate date]];
-        [defaults setBool:YES forKey:todayInString];
-        [self.tableView reloadData];
-    }
+//    if(buttonIndex == 1){
+//        //set that we buy a tip for today
+//        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+//        NSString* todayInString = [self.dateFormatter stringFromDate:[NSDate date]];
+//        [defaults setBool:YES forKey:todayInString];
+//        [self.tableView reloadData];
+//    }
 }
 
 #pragma mark - Utility

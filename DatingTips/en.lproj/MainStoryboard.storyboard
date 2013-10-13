@@ -286,14 +286,8 @@
     </scenes>
     <resources>
         <image name="BackArrorNormal.png" width="25" height="59"/>
-        <image name="BackArrorNormal.png" width="25" height="59"/>
-        <image name="Background" width="320" height="480"/>
-        <image name="Background" width="320" height="480"/>
         <image name="Background" width="320" height="480"/>
         <image name="ButtonNormal.png" width="217" height="59"/>
-        <image name="ButtonNormal.png" width="217" height="59"/>
-        <image name="ButtonSelected.png" width="217" height="59"/>
-        <image name="ButtonSelected.png" width="217" height="59"/>
         <image name="ButtonSelected.png" width="217" height="59"/>
         <image name="Logo.png" width="215" height="100"/>
         <image name="SexyImage.png" width="217" height="217"/>

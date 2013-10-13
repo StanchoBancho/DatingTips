@@ -11,5 +11,6 @@
 @interface HomeViewController : UIViewController
 
 @property (nonatomic, strong) NSArray* dataSource;
+@property (nonatomic, strong) NSArray* inAppPurchaseProducts;
 
 @end

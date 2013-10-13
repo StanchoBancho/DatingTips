@@ -13,6 +13,7 @@
 		2E15F38B18093B330052E6B5 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F38A18093B330052E6B5 /* CoreDataManager.m */; };
 		2E15F38E180953000052E6B5 /* BackArrorNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F38C180953000052E6B5 /* BackArrorNormal@2x.png */; };
 		2E15F38F180953000052E6B5 /* BackArrorNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F38D180953000052E6B5 /* BackArrorNormal.png */; };
+		2E15F392180ABAA00052E6B5 /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F391180ABAA00052E6B5 /* IAPManager.m */; };
 		2E1992A617F74A3F00C1CD4B /* default in Resources */ = {isa = PBXBuildFile; fileRef = 2E1992A517F74A3F00C1CD4B /* default */; };
 		2E1992A817F75ECF00C1CD4B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1992A717F75ECF00C1CD4B /* StoreKit.framework */; };
 		2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E43963B173EA6CD0009C422 /* iAd.framework */; };
@@ -63,6 +64,8 @@
 		2E15F38A18093B330052E6B5 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		2E15F38C180953000052E6B5 /* BackArrorNormal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BackArrorNormal@2x.png"; sourceTree = "<group>"; };
 		2E15F38D180953000052E6B5 /* BackArrorNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackArrorNormal.png; sourceTree = "<group>"; };
+		2E15F390180ABAA00052E6B5 /* IAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPManager.h; sourceTree = "<group>"; };
+		2E15F391180ABAA00052E6B5 /* IAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPManager.m; sourceTree = "<group>"; };
 		2E1992A517F74A3F00C1CD4B /* default */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default; sourceTree = "<group>"; };
 		2E1992A717F75ECF00C1CD4B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2E43963B173EA6CD0009C422 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -258,6 +261,8 @@
 				2E15F38A18093B330052E6B5 /* CoreDataManager.m */,
 				2EEBC81B17538BE70039186C /* CommunicationManager.h */,
 				2EEBC81C17538BE70039186C /* CommunicationManager.m */,
+				2E15F390180ABAA00052E6B5 /* IAPManager.h */,
+				2E15F391180ABAA00052E6B5 /* IAPManager.m */,
 				2E00559B1754C2AB0098A8DD /* NSString+Hashing.h */,
 				2E00559C1754C2AB0098A8DD /* NSString+Hashing.m */,
 				2E00559E1754C95D0098A8DD /* Constants.h */,
@@ -333,6 +338,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Stanimir Nikolov";
+				TargetAttributes = {
+					2EEC6995173E8C21007200A4 = {
+						DevelopmentTeam = 3BUU954T4W;
+					};
+				};
 			};
 			buildConfigurationList = 2EEC6991173E8C21007200A4 /* Build configuration list for PBXProject "DatingTips" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -426,6 +436,7 @@
 				2E15F38B18093B330052E6B5 /* CoreDataManager.m in Sources */,
 				2EEC69AA173E8C21007200A4 /* AppDelegate.m in Sources */,
 				2EA6D5CB17F712F300D5D358 /* NSData+AES.m in Sources */,
+				2E15F392180ABAA00052E6B5 /* IAPManager.m in Sources */,
 				2EEC69B6173E8C21007200A4 /* LoadingViewController.m in Sources */,
 				2EEC69C1173E8D89007200A4 /* HomeViewController.m in Sources */,
 				2EFAFA5E17F033C80006D9FE /* BannerViewController.m in Sources */,
@@ -522,15 +533,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Stanimir Nikolov (3W498KKCVT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Stanimir Nikolov (3W498KKCVT)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Stanimir Nikolov (8HF4SX3R8Q)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DatingTips/DatingTips-Prefix.pch";
 				INFOPLIST_FILE = "DatingTips/DatingTips-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "997E8424-F74C-48FB-9AAE-E50F0F54203D";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "997E8424-F74C-48FB-9AAE-E50F0F54203D";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "81E7CE5D-D42F-4A41-893C-ADD03D1DA0AB";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -541,14 +552,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Stanimir Nikolov (3BUU954T4W)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Stanimir Nikolov (3BUU954T4W)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DatingTips/DatingTips-Prefix.pch";
 				INFOPLIST_FILE = "DatingTips/DatingTips-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "427F5DC9-27CF-43FF-A000-6100054B3583";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "427F5DC9-27CF-43FF-A000-6100054B3583";
 				WRAPPER_EXTENSION = app;
 			};

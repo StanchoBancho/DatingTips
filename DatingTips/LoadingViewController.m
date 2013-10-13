@@ -9,13 +9,14 @@
 #import "LoadingViewController.h"
 #import "CommunicationManager.h"
 #import "HomeViewController.h"
+#import "IAPManager.h"
 
 @interface LoadingViewController ()
 
 @property(nonatomic, strong) IBOutlet UIButton* showMeATipButton;
 @property (strong, nonatomic) IBOutlet UIButton *historyButton;
 @property(nonatomic, strong) NSArray* tips;
-@property(nonatomic, strong) NSArray* paidTipsIds;
+@property(nonatomic, strong) NSArray* inAppPurchaseProducts;
 
 @end
 
@@ -45,9 +46,23 @@
 
 -(void)downloadFreeTipsAndPaidTipsIds
 {
-    //[CommunicationManager sharedProvider] getPayedTipsIdentifiers:<#^(NSArray *tips, NSError *error)completion#>
+    //download in app purchase ids
+    [[IAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
+        if (success) {
+            HomeViewController* homeViewController = nil;
+            for(UIViewController* vc in self.navigationController.viewControllers){
+                if ([vc isKindOfClass:[HomeViewController class]]){
+                    homeViewController = (HomeViewController*)vc;
+                }
+            }
+            if(homeViewController){
+                [homeViewController setInAppPurchaseProducts:products];
+            }
+            self.inAppPurchaseProducts = products;
+        }
+    }];
     
-    
+    //download daylitips
     [[CommunicationManager sharedProvider] getDailyTips:^(NSArray *tips, NSError *error) {
         if (tips) {
             NSMutableArray* newTips = [NSMutableArray arrayWithCapacity:tips.count];
@@ -71,8 +86,8 @@
                 }
                 [standardDefaults setObject:newCurrentTips forKey:@"all_tips"];
             }
-            BOOL sincResult = [standardDefaults synchronize];
-            
+            BOOL syncResult = [standardDefaults synchronize];
+            NSLog(@"Current tips re synced with STATUS: %d", syncResult);
             
             [UIView animateWithDuration:0.3 animations:^{
                 [self.showMeATipButton setHidden:NO];
@@ -92,6 +107,7 @@
     if([segue.identifier isEqualToString:@"ShowHomeViewControllerSegue"]){
       //  self.tips = @[@"       asdsa 234234 ewrafsasf asasdasd asdasdad dwadawc zdsdgs awawdas asgsag  asfasf  asasdsad  dasdaw  wawaegh  asfassdg a asawh  ssss sss twahws ssdas"];
         [(HomeViewController*)segue.destinationViewController setDataSource:self.tips];
+        [(HomeViewController*)segue.destinationViewController setInAppPurchaseProducts:self.inAppPurchaseProducts];
     }
 }
 

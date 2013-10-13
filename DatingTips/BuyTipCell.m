@@ -22,7 +22,7 @@
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    UIFont* buttonFont = [UIFont fontWithName:@"Fishfingers" size:36];
+    UIFont* buttonFont = [UIFont fontWithName:@"Fishfingers" size:24];
     [self.getAnotherButton.titleLabel setFont:buttonFont];
 }
 
