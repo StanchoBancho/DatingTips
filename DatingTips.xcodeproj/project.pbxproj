@@ -24,6 +24,10 @@
 		2EB27863173F998400726890 /* BuyTipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EB27862173F998400726890 /* BuyTipCell.xib */; };
 		2EBECB50173EDC5700C21E7B /* TipCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2EBECB4F173EDC5700C21E7B /* TipCell.xib */; };
 		2EBECB53173EE05100C21E7B /* TipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBECB52173EE05100C21E7B /* TipCell.m */; };
+		2EBF3614180D20A600340AE9 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF3612180D20A600340AE9 /* DataModel.xcdatamodeld */; };
+		2EBF3617180D25E500340AE9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBF3616180D25E500340AE9 /* CoreData.framework */; };
+		2EBF361D180D2BA000340AE9 /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF361C180D2BA000340AE9 /* Tip.m */; };
+		2EBF3620180D2BB000340AE9 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF361F180D2BB000340AE9 /* Tag.m */; };
 		2ED9D41A174C12F90088287B /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9D418174C12F90088287B /* Logo.png */; };
 		2ED9D41B174C12F90088287B /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9D419174C12F90088287B /* Logo@2x.png */; };
 		2ED9D41F174C138F0088287B /* SexyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9D41D174C138F0088287B /* SexyImage.png */; };
@@ -81,6 +85,12 @@
 		2EBECB4F173EDC5700C21E7B /* TipCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TipCell.xib; sourceTree = "<group>"; };
 		2EBECB51173EE05100C21E7B /* TipCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipCell.h; sourceTree = "<group>"; };
 		2EBECB52173EE05100C21E7B /* TipCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipCell.m; sourceTree = "<group>"; };
+		2EBF3613180D20A600340AE9 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		2EBF3616180D25E500340AE9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2EBF361B180D2BA000340AE9 /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
+		2EBF361C180D2BA000340AE9 /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
+		2EBF361E180D2BB000340AE9 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		2EBF361F180D2BB000340AE9 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		2ED9D418174C12F90088287B /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		2ED9D419174C12F90088287B /* Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logo@2x.png"; sourceTree = "<group>"; };
 		2ED9D41D174C138F0088287B /* SexyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SexyImage.png; sourceTree = "<group>"; };
@@ -123,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2EBF3617180D25E500340AE9 /* CoreData.framework in Frameworks */,
 				2E1992A817F75ECF00C1CD4B /* StoreKit.framework in Frameworks */,
 				2E127F7217F0EE5900F2318E /* CoreText.framework in Frameworks */,
 				2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */,
@@ -158,6 +169,20 @@
 				2EA6D5C917F712F300D5D358 /* NSData+AES.m */,
 			);
 			name = Additions;
+			sourceTree = "<group>";
+		};
+		2EBF3615180D20AB00340AE9 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				2EBF3612180D20A600340AE9 /* DataModel.xcdatamodeld */,
+				2EBF361B180D2BA000340AE9 /* Tip.h */,
+				2EBF361C180D2BA000340AE9 /* Tip.m */,
+				2EBF361E180D2BB000340AE9 /* Tag.h */,
+				2EBF361F180D2BB000340AE9 /* Tag.m */,
+				2E15F38918093B330052E6B5 /* CoreDataManager.h */,
+				2E15F38A18093B330052E6B5 /* CoreDataManager.m */,
+			);
+			name = "Core Data";
 			sourceTree = "<group>";
 		};
 		2ED9D410174C0ED10088287B /* Images */ = {
@@ -216,6 +241,7 @@
 		2EEC6998173E8C21007200A4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2EBF3616180D25E500340AE9 /* CoreData.framework */,
 				2E1992A717F75ECF00C1CD4B /* StoreKit.framework */,
 				2E127F7117F0EE5900F2318E /* CoreText.framework */,
 				2E43963B173EA6CD0009C422 /* iAd.framework */,
@@ -256,9 +282,8 @@
 		2EEC69BC173E8C60007200A4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2EBF3615180D20AB00340AE9 /* Core Data */,
 				2EA6D5C517F712E100D5D358 /* Additions */,
-				2E15F38918093B330052E6B5 /* CoreDataManager.h */,
-				2E15F38A18093B330052E6B5 /* CoreDataManager.m */,
 				2EEBC81B17538BE70039186C /* CommunicationManager.h */,
 				2EEBC81C17538BE70039186C /* CommunicationManager.m */,
 				2E15F390180ABAA00052E6B5 /* IAPManager.h */,
@@ -438,12 +463,15 @@
 				2EA6D5CB17F712F300D5D358 /* NSData+AES.m in Sources */,
 				2E15F392180ABAA00052E6B5 /* IAPManager.m in Sources */,
 				2EEC69B6173E8C21007200A4 /* LoadingViewController.m in Sources */,
+				2EBF3614180D20A600340AE9 /* DataModel.xcdatamodeld in Sources */,
+				2EBF3620180D2BB000340AE9 /* Tag.m in Sources */,
 				2EEC69C1173E8D89007200A4 /* HomeViewController.m in Sources */,
 				2EFAFA5E17F033C80006D9FE /* BannerViewController.m in Sources */,
 				2EBECB53173EE05100C21E7B /* TipCell.m in Sources */,
 				2EB27861173F969A00726890 /* BuyTipCell.m in Sources */,
 				2EEBC81D17538BE70039186C /* CommunicationManager.m in Sources */,
 				2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */,
+				2EBF361D180D2BA000340AE9 /* Tip.m in Sources */,
 				2E00559D1754C2AB0098A8DD /* NSString+Hashing.m in Sources */,
 				2E58A9D81805EFA500E0136F /* HistoryViewController.m in Sources */,
 			);
@@ -587,6 +615,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		2EBF3612180D20A600340AE9 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				2EBF3613180D20A600340AE9 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 2EBF3613180D20A600340AE9 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 2EEC698E173E8C21007200A4 /* Project object */;
 }

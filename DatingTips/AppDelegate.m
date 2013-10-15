@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "TestFlight.h"
+#import "IAPManager.h"
 
 @interface AppDelegate()<UINavigationControllerDelegate>
 
@@ -18,7 +19,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [TestFlight takeOff:@"c50d19b0-2eca-4774-ace7-6ddd12369ee4"];
-    
+    [IAPManager sharedInstance];
+
     return YES;
 }
 							

@@ -7,11 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <StoreKit/StoreKit.h>
+
 typedef void (^RequestProductsCompletionHandler)(BOOL success, NSArray * products);
+UIKIT_EXTERN NSString *const IAPHelperProductPurchasedNotification;
 
 @interface IAPManager : NSObject
 
+
+
 + (IAPManager *)sharedInstance;
 - (void)requestProductsWithCompletionHandler:(RequestProductsCompletionHandler)completionHandler;
+
+- (void)buyProduct:(SKProduct *)product;
 
 @end

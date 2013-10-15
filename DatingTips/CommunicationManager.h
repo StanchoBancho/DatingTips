@@ -11,6 +11,10 @@
 @interface CommunicationManager : NSObject
 
 + (CommunicationManager*)sharedProvider;
+
+@property (nonatomic, strong) UIManagedDocument *document;
+
 - (void)getDailyTips:(void(^)(NSArray* tips, NSError* error))completion;
 - (void)getPayedTipsIdentifiers:(void(^)(NSArray* tipsIds, NSError* error))completion;
+
 @end

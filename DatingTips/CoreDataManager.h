@@ -10,4 +10,10 @@
 
 @interface CoreDataManager : NSObject
 
+@property (nonatomic, strong) UIManagedDocument *document;
++ (CoreDataManager*)sharedManager;
+
+- (void)setupDocument:(void(^)(UIManagedDocument* document, NSError* error))completion;
+
+
 @end

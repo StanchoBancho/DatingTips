@@ -10,6 +10,7 @@
 #import "CommunicationManager.h"
 #import "HomeViewController.h"
 #import "IAPManager.h"
+#import "CoreDataManager.h"
 
 @interface LoadingViewController ()
 
@@ -17,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *historyButton;
 @property(nonatomic, strong) NSArray* tips;
 @property(nonatomic, strong) NSArray* inAppPurchaseProducts;
+@property(nonatomic, strong) UIManagedDocument* document;
 
 @end
 
@@ -32,14 +34,22 @@
     [self.historyButton.titleLabel setFont:buttonFont];
     [self.showMeATipButton setHidden:YES];
     self.shouldDownloadAgainTipOfTheDay = YES;
-	// Do any additional setup after loading the view, typically from a nib.
+    
+    //setup the uimanaged document
+ 
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     if(self.shouldDownloadAgainTipOfTheDay){
-        [self downloadFreeTipsAndPaidTipsIds];
+        [[CoreDataManager sharedManager] setupDocument:^(UIManagedDocument *document, NSError *error) {
+            if(!error && document){
+                self.document = document;
+                [self downloadFreeTipsAndPaidTipsIds];
+            }
+        }];
+        
     }
     self.shouldDownloadAgainTipOfTheDay = YES;
 }

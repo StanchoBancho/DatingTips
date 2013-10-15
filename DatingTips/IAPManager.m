@@ -7,9 +7,10 @@
 //
 
 #import "IAPManager.h"
-#import <StoreKit/StoreKit.h>
 
-@interface IAPManager ()<SKProductsRequestDelegate>
+NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurchasedNotification";
+
+@interface IAPManager ()<SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 @end
 
@@ -22,6 +23,8 @@
     NSSet * _productIdentifiers;
     NSMutableSet * _purchasedProductIdentifiers;
 }
+
+#pragma mark - Public Methods
 
 + (IAPManager *)sharedInstance {
     static dispatch_once_t once;
@@ -41,7 +44,9 @@
 - (id)initWithProductIdentifiers:(NSSet *)productIdentifiers {
     
     if ((self = [super init])) {
-        
+
+        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
         // Store product identifiers
         _productIdentifiers = productIdentifiers;
         
@@ -73,6 +78,14 @@
     
 }
 
+- (void)buyProduct:(SKProduct *)product
+{
+    NSLog(@"Buying %@...", product.productIdentifier);
+    SKPayment * payment = [SKPayment paymentWithProduct:product];
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+
 #pragma mark - SKProductsRequestDelegate
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response {
@@ -102,6 +115,74 @@
     _completionHandler(NO, nil);
     _completionHandler = nil;
     
+}
+
+- (void)provideContentForTransaction:(SKPaymentTransaction*)transaction
+{
+    
+    NSData* receiptData = nil;
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        // Load resources for iOS 6.1 or earlier
+        receiptData = [transaction transactionReceipt];
+    } else {
+        // Load resources for iOS 7 or later
+        receiptData = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
+    }
+    NSString *productIdentifier = transaction.payment.productIdentifier;
+    
+    //make request for productIdentifier with receipt data
+    
+    
+    [_purchasedProductIdentifiers addObject:productIdentifier];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:IAPHelperProductPurchasedNotification object:productIdentifier userInfo:nil];
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+
+}
+
+#pragma mark - Utility methods
+
+- (void)completeTransaction:(SKPaymentTransaction *)transaction {
+    NSLog(@"completeTransaction...");
+    [self provideContentForTransaction:transaction];
+}
+
+- (void)restoreTransaction:(SKPaymentTransaction *)transaction {
+    NSLog(@"restoreTransaction...");
+    [self provideContentForTransaction:transaction];
+}
+
+- (void)failedTransaction:(SKPaymentTransaction *)transaction {
+    
+    NSLog(@"failedTransaction...");
+    if (transaction.error.code != SKErrorPaymentCancelled)
+    {
+        NSLog(@"Transaction error: %@", transaction.error.localizedDescription);
+    }
+    
+    [[SKPaymentQueue defaultQueue] finishTransaction: transaction];
+}
+
+#pragma mark - SKPaymentTransactionObserver methods
+
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
+{
+    for (SKPaymentTransaction * transaction in transactions) {
+        switch (transaction.transactionState)
+        {
+            case SKPaymentTransactionStatePurchased:
+                [self completeTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateFailed:
+                [self failedTransaction:transaction];
+                break;
+            case SKPaymentTransactionStateRestored:
+                [self restoreTransaction:transaction];
+            default:
+                break;
+        }
+    };
 }
 
 

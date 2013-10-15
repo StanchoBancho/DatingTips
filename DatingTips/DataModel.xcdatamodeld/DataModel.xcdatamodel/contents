@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3396" systemVersion="12F45" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Tag" representedClassName="Tag" syncable="YES">
+        <attribute name="tagTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="tips" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tip" inverseName="tags" inverseEntity="Tip" syncable="YES"/>
+    </entity>
+    <entity name="Tip" representedClassName="Tip" syncable="YES">
+        <attribute name="tipDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tipId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="tags" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tag" inverseName="tips" inverseEntity="Tag" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Tip" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Tag" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>

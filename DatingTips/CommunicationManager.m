@@ -70,6 +70,7 @@ NSString* urlSecret;
     return self;
 }
 
+
 #pragma mark - Utility Methods
 
 - (void)askForPassword:(NSError**)error
@@ -203,6 +204,11 @@ NSString* urlSecret;
 }
 
 #pragma mark - Public Methods
+
+- (void)updateDailyTips:(void(^)(UIManagedDocument* document, NSError* error))completion
+{
+
+}
 
 - (void)getDailyTips:(void(^)(NSArray* tips, NSError* error))completion
 {

@@ -11,6 +11,7 @@
 #import "TipCell.h"
 #import "LoadingViewController.h"
 #import <StoreKit/StoreKit.h>
+#import "IAPManager.h"
 
 #define kCellCount 2
 
@@ -66,8 +67,6 @@
 
 -(IBAction)getAnotherButtonPressed:(id)sender
 {
-    UIAlertView* alertView = [[UIAlertView alloc]initWithTitle:@"In app purchase" message:@"Are you sure you want to buy another tip for $0.99" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
-    [alertView show];
 }
 
 -(IBAction)backButtonPressed:(id)sender
