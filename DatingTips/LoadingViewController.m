@@ -46,7 +46,8 @@
         [[CoreDataManager sharedManager] setupDocument:^(UIManagedDocument *document, NSError *error) {
             if(!error && document){
                 self.document = document;
-                [self downloadFreeTipsAndPaidTipsIds];
+                [self downloadProductsFromStoreKit];
+                [self downloadFreeTips];
             }
         }];
         
@@ -54,7 +55,7 @@
     self.shouldDownloadAgainTipOfTheDay = YES;
 }
 
--(void)downloadFreeTipsAndPaidTipsIds
+-(void)downloadProductsFromStoreKit
 {
     //download in app purchase ids
     [[IAPManager sharedInstance] requestProductsWithCompletionHandler:^(BOOL success, NSArray *products) {
@@ -71,10 +72,14 @@
             self.inAppPurchaseProducts = products;
         }
     }];
-    
+}
+
+-(void)downloadFreeTips
+{
     //download daylitips
     [[CommunicationManager sharedProvider] getDailyTips:^(NSArray *tips, NSError *error) {
         if (tips) {
+           
             NSMutableArray* newTips = [NSMutableArray arrayWithCapacity:tips.count];
             for (NSString* tip in tips) {
                 [newTips addObject:[NSString stringWithFormat:@"          %@",tip]];

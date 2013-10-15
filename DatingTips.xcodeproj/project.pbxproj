@@ -16,6 +16,8 @@
 		2E15F392180ABAA00052E6B5 /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F391180ABAA00052E6B5 /* IAPManager.m */; };
 		2E1992A617F74A3F00C1CD4B /* default in Resources */ = {isa = PBXBuildFile; fileRef = 2E1992A517F74A3F00C1CD4B /* default */; };
 		2E1992A817F75ECF00C1CD4B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1992A717F75ECF00C1CD4B /* StoreKit.framework */; };
+		2E313440180DE3670027EDBA /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31343F180DE3670027EDBA /* Tip.m */; };
+		2E313443180DE3750027EDBA /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E313442180DE3750027EDBA /* Tag.m */; };
 		2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E43963B173EA6CD0009C422 /* iAd.framework */; };
 		2E58A9D81805EFA500E0136F /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E58A9D71805EFA500E0136F /* HistoryViewController.m */; };
 		2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA6D5C717F712F300D5D358 /* cipher.m */; };
@@ -26,8 +28,6 @@
 		2EBECB53173EE05100C21E7B /* TipCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBECB52173EE05100C21E7B /* TipCell.m */; };
 		2EBF3614180D20A600340AE9 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF3612180D20A600340AE9 /* DataModel.xcdatamodeld */; };
 		2EBF3617180D25E500340AE9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EBF3616180D25E500340AE9 /* CoreData.framework */; };
-		2EBF361D180D2BA000340AE9 /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF361C180D2BA000340AE9 /* Tip.m */; };
-		2EBF3620180D2BB000340AE9 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBF361F180D2BB000340AE9 /* Tag.m */; };
 		2ED9D41A174C12F90088287B /* Logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9D418174C12F90088287B /* Logo.png */; };
 		2ED9D41B174C12F90088287B /* Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9D419174C12F90088287B /* Logo@2x.png */; };
 		2ED9D41F174C138F0088287B /* SexyImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ED9D41D174C138F0088287B /* SexyImage.png */; };
@@ -72,6 +72,10 @@
 		2E15F391180ABAA00052E6B5 /* IAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPManager.m; sourceTree = "<group>"; };
 		2E1992A517F74A3F00C1CD4B /* default */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default; sourceTree = "<group>"; };
 		2E1992A717F75ECF00C1CD4B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		2E31343E180DE3670027EDBA /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
+		2E31343F180DE3670027EDBA /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
+		2E313441180DE3750027EDBA /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		2E313442180DE3750027EDBA /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		2E43963B173EA6CD0009C422 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		2E58A9D61805EFA400E0136F /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		2E58A9D71805EFA500E0136F /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
@@ -87,10 +91,6 @@
 		2EBECB52173EE05100C21E7B /* TipCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TipCell.m; sourceTree = "<group>"; };
 		2EBF3613180D20A600340AE9 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		2EBF3616180D25E500340AE9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		2EBF361B180D2BA000340AE9 /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
-		2EBF361C180D2BA000340AE9 /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
-		2EBF361E180D2BB000340AE9 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
-		2EBF361F180D2BB000340AE9 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		2ED9D418174C12F90088287B /* Logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Logo.png; sourceTree = "<group>"; };
 		2ED9D419174C12F90088287B /* Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Logo@2x.png"; sourceTree = "<group>"; };
 		2ED9D41D174C138F0088287B /* SexyImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SexyImage.png; sourceTree = "<group>"; };
@@ -175,10 +175,10 @@
 			isa = PBXGroup;
 			children = (
 				2EBF3612180D20A600340AE9 /* DataModel.xcdatamodeld */,
-				2EBF361B180D2BA000340AE9 /* Tip.h */,
-				2EBF361C180D2BA000340AE9 /* Tip.m */,
-				2EBF361E180D2BB000340AE9 /* Tag.h */,
-				2EBF361F180D2BB000340AE9 /* Tag.m */,
+				2E31343E180DE3670027EDBA /* Tip.h */,
+				2E31343F180DE3670027EDBA /* Tip.m */,
+				2E313441180DE3750027EDBA /* Tag.h */,
+				2E313442180DE3750027EDBA /* Tag.m */,
 				2E15F38918093B330052E6B5 /* CoreDataManager.h */,
 				2E15F38A18093B330052E6B5 /* CoreDataManager.m */,
 			);
@@ -464,14 +464,14 @@
 				2E15F392180ABAA00052E6B5 /* IAPManager.m in Sources */,
 				2EEC69B6173E8C21007200A4 /* LoadingViewController.m in Sources */,
 				2EBF3614180D20A600340AE9 /* DataModel.xcdatamodeld in Sources */,
-				2EBF3620180D2BB000340AE9 /* Tag.m in Sources */,
+				2E313443180DE3750027EDBA /* Tag.m in Sources */,
 				2EEC69C1173E8D89007200A4 /* HomeViewController.m in Sources */,
 				2EFAFA5E17F033C80006D9FE /* BannerViewController.m in Sources */,
 				2EBECB53173EE05100C21E7B /* TipCell.m in Sources */,
 				2EB27861173F969A00726890 /* BuyTipCell.m in Sources */,
 				2EEBC81D17538BE70039186C /* CommunicationManager.m in Sources */,
 				2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */,
-				2EBF361D180D2BA000340AE9 /* Tip.m in Sources */,
+				2E313440180DE3670027EDBA /* Tip.m in Sources */,
 				2E00559D1754C2AB0098A8DD /* NSString+Hashing.m in Sources */,
 				2E58A9D81805EFA500E0136F /* HistoryViewController.m in Sources */,
 			);

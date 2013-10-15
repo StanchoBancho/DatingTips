@@ -205,11 +205,6 @@ NSString* urlSecret;
 
 #pragma mark - Public Methods
 
-- (void)updateDailyTips:(void(^)(UIManagedDocument* document, NSError* error))completion
-{
-
-}
-
 - (void)getDailyTips:(void(^)(NSArray* tips, NSError* error))completion
 {
     dispatch_sync(self.workingQueue, ^{

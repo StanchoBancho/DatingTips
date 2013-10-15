@@ -7,12 +7,14 @@
 //
 
 #import "Tip.h"
+#import "Tag.h"
 
 
 @implementation Tip
 
-@dynamic tipId;
 @dynamic tipDescription;
+@dynamic tipId;
+@dynamic date;
 @dynamic tags;
 
 @end

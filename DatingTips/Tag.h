@@ -14,6 +14,14 @@
 @interface Tag : NSManagedObject
 
 @property (nonatomic, retain) NSString * tagTitle;
-@property (nonatomic, retain) Tip *tips;
+@property (nonatomic, retain) NSSet *tips;
+@end
+
+@interface Tag (CoreDataGeneratedAccessors)
+
+- (void)addTipsObject:(Tip *)value;
+- (void)removeTipsObject:(Tip *)value;
+- (void)addTips:(NSSet *)values;
+- (void)removeTips:(NSSet *)values;
 
 @end

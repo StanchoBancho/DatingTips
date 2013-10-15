@@ -7,6 +7,9 @@
 //
 
 #import "CoreDataManager.h"
+#import <CoreData/CoreData.h>
+#import "Tip.h"
+#import "Tag.h"
 
 static CoreDataManager* sharedManager;
 @interface CoreDataManager()
@@ -16,18 +19,6 @@ static CoreDataManager* sharedManager;
 @end
 
 @implementation CoreDataManager
-
-+ (CoreDataManager*)sharedManager
-{
-    if(!sharedManager){
-        @synchronized(self){
-            if(!sharedManager){
-                sharedManager = [[super allocWithZone:NULL] init];
-            }
-        }
-    }
-    return sharedManager;
-}
 
 +(id)allocWithZone:(NSZone *)zone
 {
@@ -45,10 +36,97 @@ static CoreDataManager* sharedManager;
     return self;
 }
 
+#pragma mark - Public methods
+
++ (CoreDataManager*)sharedManager
+{
+    if(!sharedManager){
+        @synchronized(self){
+            if(!sharedManager){
+                sharedManager = [[super allocWithZone:NULL] init];
+            }
+        }
+    }
+    return sharedManager;
+}
+
+
 - (void)setupDocument:(void(^)(UIManagedDocument* document, NSError* error))completion
 {
     self.setupCompletion = completion;
     [self setUpDocument:NO];
+}
+
+-(void)setTagObjectWithTagTitle:(NSString*)tagTitle toTip:(Tip*)tip withAllTagsInTheContext:(NSMutableArray*)prevTags inContext:(NSManagedObjectContext*)context
+{
+    //check do we have such tag
+    BOOL __block isTagExisting = NO;
+    [prevTags enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        Tag* prevTag = (Tag*)obj;
+        if ([prevTag.tagTitle isEqualToString:tagTitle]) {
+            //if we have such tag - ok use it
+            [tip addTagsObject:prevTag];
+            isTagExisting = YES;
+            *stop = YES;
+        }
+    }];
+    //if we do not have such tag create new and add it.
+    if(!isTagExisting){
+        Tag* newTag = (Tag*)[NSEntityDescription insertNewObjectForEntityForName:@"Tag" inManagedObjectContext:context];
+        [newTag setTagTitle:tagTitle];
+        [tip addTagsObject:newTag];
+        [prevTags addObject:newTag];
+    }
+
+}
+
+- (void)updateTipsWithJSONArray:(NSArray*)tipsArray
+{
+    NSManagedObjectContext* context = self.document.managedObjectContext;
+
+    //fetch all existing tags
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Tip"];
+    NSError *error = nil;
+    NSArray *prevTips = [context executeFetchRequest:request error:&error];
+    
+    //fetch all existing tags
+    NSFetchRequest *tagRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tag"];
+    NSError *tagError = nil;
+    NSMutableArray *prevTags = [[context executeFetchRequest:tagRequest error:&tagError] mutableCopy];
+    
+    NSMutableSet* allStillExistingsIds = [NSMutableSet set];
+    //insert and update existings
+    for (NSDictionary* tipData in tipsArray) {
+        //check for existing tip
+        NSNumber* tipId = [tipData objectForKey:@"id"];
+        [allStillExistingsIds addObject:tipId];
+        BOOL isExisting = NO;
+        for (Tip* existingTip in prevTips) {
+            if ([existingTip.tipId isEqual:tipId]) {
+                //reset the description
+                [existingTip setTipDescription:[tipData objectForKey:@"description"]];
+                 //reset tags
+                [existingTip removeTags:existingTip.tags];
+                NSArray* tagsTitles = [tipData objectForKey:@"tags"];
+                for(NSString* tagTitle in tagsTitles){
+                    [self setTagObjectWithTagTitle:tagTitle toTip:existingTip withAllTagsInTheContext:prevTags inContext:context];
+                }
+                isExisting = YES;
+                break;
+            }
+        }
+        //if such tip is not existing create new tip
+        if (!isExisting){
+            Tip* newTip = (Tip*)[NSEntityDescription insertNewObjectForEntityForName:@"Tip" inManagedObjectContext:context];
+            [newTip setTipId:tipId];
+            [newTip setTipDescription:[tipData objectForKey:@"description"]];
+            //set tip tags
+            NSArray* tagsTitles = [tipData objectForKey:@"tags"];
+            for(NSString* tagTitle in tagsTitles){
+                [self setTagObjectWithTagTitle:tagTitle toTip:newTip withAllTagsInTheContext:prevTags inContext:context];
+            }
+        }
+    }
 }
 
 

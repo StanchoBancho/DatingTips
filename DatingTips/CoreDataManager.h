@@ -15,5 +15,7 @@
 
 - (void)setupDocument:(void(^)(UIManagedDocument* document, NSError* error))completion;
 
+- (void)updateTipsWithJSONArray:(NSArray*)tipsArray;
+
 
 @end
