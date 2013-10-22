@@ -2,7 +2,7 @@
 //  Tip.m
 //  DatingTips
 //
-//  Created by Stanimir Nikolov on 10/15/13.
+//  Created by Stanimir Nikolov on 10/22/13.
 //  Copyright (c) 2013 Stanimir Nikolov. All rights reserved.
 //
 
@@ -12,9 +12,9 @@
 
 @implementation Tip
 
+@dynamic date;
 @dynamic tipDescription;
 @dynamic tipId;
-@dynamic date;
 @dynamic tags;
 
 @end

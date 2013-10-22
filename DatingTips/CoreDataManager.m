@@ -98,11 +98,11 @@ static CoreDataManager* sharedManager;
     //insert and update existings
     for (NSDictionary* tipData in tipsArray) {
         //check for existing tip
-        NSNumber* tipId = [tipData objectForKey:@"id"];
+        NSString* tipId = [tipData objectForKey:@"id"];
         [allStillExistingsIds addObject:tipId];
         BOOL isExisting = NO;
         for (Tip* existingTip in prevTips) {
-            if ([existingTip.tipId isEqual:tipId]) {
+            if ([existingTip.tipId isEqualToString:tipId]) {
                 //reset the description
                 [existingTip setTipDescription:[tipData objectForKey:@"description"]];
                  //reset tags

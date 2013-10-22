@@ -37,6 +37,7 @@
     
     //setup the uimanaged document
  
+    self.navigationController.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -79,31 +80,7 @@
     //download daylitips
     [[CommunicationManager sharedProvider] getDailyTips:^(NSArray *tips, NSError *error) {
         if (tips) {
-           
-            NSMutableArray* newTips = [NSMutableArray arrayWithCapacity:tips.count];
-            for (NSString* tip in tips) {
-                [newTips addObject:[NSString stringWithFormat:@"          %@",tip]];
-            }
-            self.tips = newTips;
-            
-            //do some dummy store for the tips for now
-            NSUserDefaults* standardDefaults = [NSUserDefaults standardUserDefaults];
-            NSArray* currentTips = [standardDefaults objectForKey:@"all_tips"];
-            if(!currentTips){
-                [standardDefaults setObject:[self.tips copy] forKey:@"all_tips"];
-            }
-            else{
-                NSMutableArray* newCurrentTips = [NSMutableArray arrayWithArray:currentTips];
-                for (NSString* newTip in self.tips) {
-                    if(![newCurrentTips containsObject:newTip]){
-                        [newCurrentTips addObject:newTip];
-                    }
-                }
-                [standardDefaults setObject:newCurrentTips forKey:@"all_tips"];
-            }
-            BOOL syncResult = [standardDefaults synchronize];
-            NSLog(@"Current tips re synced with STATUS: %d", syncResult);
-            
+            [[CoreDataManager sharedManager] updateTipsWithJSONArray:tips];
             [UIView animateWithDuration:0.3 animations:^{
                 [self.showMeATipButton setHidden:NO];
             }];
@@ -120,8 +97,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"ShowHomeViewControllerSegue"]){
-      //  self.tips = @[@"       asdsa 234234 ewrafsasf asasdasd asdasdad dwadawc zdsdgs awawdas asgsag  asfasf  asasdsad  dasdaw  wawaegh  asfassdg a asawh  ssss sss twahws ssdas"];
-        [(HomeViewController*)segue.destinationViewController setDataSource:self.tips];
+        [(HomeViewController*)segue.destinationViewController setDocument:[[CoreDataManager sharedManager] document]];
         [(HomeViewController*)segue.destinationViewController setInAppPurchaseProducts:self.inAppPurchaseProducts];
     }
 }

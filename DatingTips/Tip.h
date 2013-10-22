@@ -2,7 +2,7 @@
 //  Tip.h
 //  DatingTips
 //
-//  Created by Stanimir Nikolov on 10/15/13.
+//  Created by Stanimir Nikolov on 10/22/13.
 //  Copyright (c) 2013 Stanimir Nikolov. All rights reserved.
 //
 
@@ -13,9 +13,9 @@
 
 @interface Tip : NSManagedObject
 
-@property (nonatomic, retain) NSString * tipDescription;
-@property (nonatomic, retain) NSNumber * tipId;
 @property (nonatomic, retain) NSDate * date;
+@property (nonatomic, retain) NSString * tipDescription;
+@property (nonatomic, retain) NSString * tipId;
 @property (nonatomic, retain) NSSet *tags;
 @end
 

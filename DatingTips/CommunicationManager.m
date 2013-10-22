@@ -169,7 +169,10 @@ NSString* urlSecret;
         }
         //parse the data
         NSError* parseError = nil;
-        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:tipsData options:NSJSONReadingAllowFragments error:&parseError];
+        NSString* string = [[NSString alloc] initWithData:tipsData encoding:NSUTF8StringEncoding];
+        NSLog(@"the row data is %@", string);
+        
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:tipsData options:NSJSONReadingMutableLeaves error:&parseError];
         NSLog(@"tips data is:%@",json);
         
         NSArray* tips = [json objectForKey:@"tips"];

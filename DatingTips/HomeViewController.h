@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataTableController.h"
 
-@interface HomeViewController : UIViewController
+@interface HomeViewController : CoreDataTableController
 
-@property (nonatomic, strong) NSArray* dataSource;
 @property (nonatomic, strong) NSArray* inAppPurchaseProducts;
+@property (nonatomic, strong) UIManagedDocument* document;
 
 @end

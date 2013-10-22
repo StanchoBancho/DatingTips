@@ -210,7 +210,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="GOM-gL-Cjm"/>
                     <connections>
-                        <outlet property="tableView" destination="ene-Vc-1Zl" id="Gr5-Kg-TA1"/>
+                        <outlet property="tableView" destination="ene-Vc-1Zl" id="ZiM-NU-aGb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7dt-wY-swL" userLabel="First Responder" sceneMemberID="firstResponder"/>

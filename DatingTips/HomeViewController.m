@@ -12,13 +12,13 @@
 #import "LoadingViewController.h"
 #import <StoreKit/StoreKit.h>
 #import "IAPManager.h"
-
-#define kCellCount 2
+#import "Tip.h"
 
 @interface HomeViewController ()<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
 @property (nonatomic, strong) NSDateFormatter* dateFormatter;
+@property (nonatomic, assign) NSInteger numberOfTips;
 @end
 
 @implementation HomeViewController
@@ -52,6 +52,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setupFetchedResultsController
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Tip"];
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"tipId" ascending:YES];
+    request.sortDescriptors = @[ sortDescriptor1];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.document.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+}
+
 -(void)setInAppPurchaseProducts:(NSArray *)inAppPurchaseProducts
 {
     if(inAppPurchaseProducts){
@@ -61,6 +70,14 @@
         _inAppPurchaseProducts = @[];
     }
     [self.tableView reloadData];
+}
+
+- (void)setDocument:(UIManagedDocument *)document;
+{
+    if (_document != document) {
+        _document = document;
+        [self setupFetchedResultsController];
+    }
 }
 
 #pragma mark - Action Methods
@@ -80,15 +97,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger result = [self.dataSource count] + [self.inAppPurchaseProducts count];
+    self.numberOfTips = [super tableView:self.tableView numberOfRowsInSection:section];
+    NSInteger result = self.numberOfTips + [self.inAppPurchaseProducts count];
     return result;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = nil;
-    if(indexPath.row >= [self.dataSource count]){
-        NSInteger indexInProducts = [indexPath row] - [self.dataSource count];
+    if(indexPath.row >= self.numberOfTips){
+        NSInteger indexInProducts = [indexPath row] - self.numberOfTips;
         cell = [tableView dequeueReusableCellWithIdentifier:@"BuyTipCell"];
         [[(BuyTipCell*)cell getAnotherButton] addTarget:self action:@selector(getAnotherButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -102,8 +120,8 @@
     }
     
     cell = [tableView dequeueReusableCellWithIdentifier:@"TipCell"];
-    
-    NSString* title = [self.dataSource objectAtIndex:[indexPath row]];
+    Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString* title = currentTip.tipDescription;
     [(TipCell*)cell setupCellWithTip:title];
     return cell;
 }
@@ -111,10 +129,12 @@
 #pragma mark - Table View Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if(indexPath.row >= [self.dataSource count]){
+    if(indexPath.row >= self.numberOfTips){
         return 70.0f;
     }
-    CGFloat result = [TipCell cellHeightForTip:self.dataSource[indexPath.row]];
+    Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    CGFloat result = [TipCell cellHeightForTip:currentTip.tipDescription];
     return result;
 }
 

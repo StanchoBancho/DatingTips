@@ -14,11 +14,12 @@
 		2E15F38E180953000052E6B5 /* BackArrorNormal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F38C180953000052E6B5 /* BackArrorNormal@2x.png */; };
 		2E15F38F180953000052E6B5 /* BackArrorNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E15F38D180953000052E6B5 /* BackArrorNormal.png */; };
 		2E15F392180ABAA00052E6B5 /* IAPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E15F391180ABAA00052E6B5 /* IAPManager.m */; };
+		2E176C6418171E0D00CDE2EA /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E176C6318171E0D00CDE2EA /* Tip.m */; };
 		2E1992A617F74A3F00C1CD4B /* default in Resources */ = {isa = PBXBuildFile; fileRef = 2E1992A517F74A3F00C1CD4B /* default */; };
 		2E1992A817F75ECF00C1CD4B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1992A717F75ECF00C1CD4B /* StoreKit.framework */; };
-		2E313440180DE3670027EDBA /* Tip.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E31343F180DE3670027EDBA /* Tip.m */; };
 		2E313443180DE3750027EDBA /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E313442180DE3750027EDBA /* Tag.m */; };
 		2E43963C173EA6CD0009C422 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E43963B173EA6CD0009C422 /* iAd.framework */; };
+		2E47F7C5180FD02700AF9BF9 /* CoreDataTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E47F7C4180FD02700AF9BF9 /* CoreDataTableController.m */; };
 		2E58A9D81805EFA500E0136F /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E58A9D71805EFA500E0136F /* HistoryViewController.m */; };
 		2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA6D5C717F712F300D5D358 /* cipher.m */; };
 		2EA6D5CB17F712F300D5D358 /* NSData+AES.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA6D5C917F712F300D5D358 /* NSData+AES.m */; };
@@ -70,13 +71,15 @@
 		2E15F38D180953000052E6B5 /* BackArrorNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackArrorNormal.png; sourceTree = "<group>"; };
 		2E15F390180ABAA00052E6B5 /* IAPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPManager.h; sourceTree = "<group>"; };
 		2E15F391180ABAA00052E6B5 /* IAPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPManager.m; sourceTree = "<group>"; };
+		2E176C6218171E0D00CDE2EA /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
+		2E176C6318171E0D00CDE2EA /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
 		2E1992A517F74A3F00C1CD4B /* default */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default; sourceTree = "<group>"; };
 		2E1992A717F75ECF00C1CD4B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		2E31343E180DE3670027EDBA /* Tip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tip.h; sourceTree = "<group>"; };
-		2E31343F180DE3670027EDBA /* Tip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tip.m; sourceTree = "<group>"; };
 		2E313441180DE3750027EDBA /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
 		2E313442180DE3750027EDBA /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		2E43963B173EA6CD0009C422 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		2E47F7C3180FD02700AF9BF9 /* CoreDataTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableController.h; sourceTree = "<group>"; };
+		2E47F7C4180FD02700AF9BF9 /* CoreDataTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableController.m; sourceTree = "<group>"; };
 		2E58A9D61805EFA400E0136F /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
 		2E58A9D71805EFA500E0136F /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
 		2EA6D5C617F712F300D5D358 /* cipher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cipher.h; sourceTree = "<group>"; };
@@ -160,6 +163,15 @@
 			name = Cells;
 			sourceTree = "<group>";
 		};
+		2E47F7C2180FCF4F00AF9BF9 /* Basic View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2E47F7C3180FD02700AF9BF9 /* CoreDataTableController.h */,
+				2E47F7C4180FD02700AF9BF9 /* CoreDataTableController.m */,
+			);
+			name = "Basic View Controllers";
+			sourceTree = "<group>";
+		};
 		2EA6D5C517F712E100D5D358 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,10 +187,10 @@
 			isa = PBXGroup;
 			children = (
 				2EBF3612180D20A600340AE9 /* DataModel.xcdatamodeld */,
-				2E31343E180DE3670027EDBA /* Tip.h */,
-				2E31343F180DE3670027EDBA /* Tip.m */,
 				2E313441180DE3750027EDBA /* Tag.h */,
 				2E313442180DE3750027EDBA /* Tag.m */,
+				2E176C6218171E0D00CDE2EA /* Tip.h */,
+				2E176C6318171E0D00CDE2EA /* Tip.m */,
 				2E15F38918093B330052E6B5 /* CoreDataManager.h */,
 				2E15F38A18093B330052E6B5 /* CoreDataManager.m */,
 			);
@@ -308,6 +320,7 @@
 		2EEC69BE173E8C6E007200A4 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2E47F7C2180FCF4F00AF9BF9 /* Basic View Controllers */,
 				2EFAFA5C17F033C80006D9FE /* BannerViewController.h */,
 				2EFAFA5D17F033C80006D9FE /* BannerViewController.m */,
 				2EEC69B4173E8C21007200A4 /* LoadingViewController.h */,
@@ -471,7 +484,8 @@
 				2EB27861173F969A00726890 /* BuyTipCell.m in Sources */,
 				2EEBC81D17538BE70039186C /* CommunicationManager.m in Sources */,
 				2EA6D5CA17F712F300D5D358 /* cipher.m in Sources */,
-				2E313440180DE3670027EDBA /* Tip.m in Sources */,
+				2E47F7C5180FD02700AF9BF9 /* CoreDataTableController.m in Sources */,
+				2E176C6418171E0D00CDE2EA /* Tip.m in Sources */,
 				2E00559D1754C2AB0098A8DD /* NSString+Hashing.m in Sources */,
 				2E58A9D81805EFA500E0136F /* HistoryViewController.m in Sources */,
 			);
