@@ -80,7 +80,7 @@ static CoreDataManager* sharedManager;
 
 }
 
-- (void)updateTipsWithJSONArray:(NSArray*)tipsArray
+- (void)updateTipsWithJSONArray:(NSArray*)tipsArray forDate:(NSDate*)date
 {
     NSManagedObjectContext* context = self.document.managedObjectContext;
 
@@ -111,6 +111,7 @@ static CoreDataManager* sharedManager;
                 for(NSString* tagTitle in tagsTitles){
                     [self setTagObjectWithTagTitle:tagTitle toTip:existingTip withAllTagsInTheContext:prevTags inContext:context];
                 }
+                //do not reset the date
                 isExisting = YES;
                 break;
             }
@@ -119,6 +120,7 @@ static CoreDataManager* sharedManager;
         if (!isExisting){
             Tip* newTip = (Tip*)[NSEntityDescription insertNewObjectForEntityForName:@"Tip" inManagedObjectContext:context];
             [newTip setTipId:tipId];
+            [newTip setDate:date];
             [newTip setTipDescription:[tipData objectForKey:@"description"]];
             //set tip tags
             NSArray* tagsTitles = [tipData objectForKey:@"tags"];

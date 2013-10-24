@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CoreDataTableController.h"
 
-@interface HistoryViewController : UIViewController
+@interface HistoryViewController : CoreDataTableController
+
+@property (nonatomic, strong) UIManagedDocument* document;
 
 @end

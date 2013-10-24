@@ -49,4 +49,10 @@
     return result;
 }
 
+//TO DO: override this implementation
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
+}
+
 @end

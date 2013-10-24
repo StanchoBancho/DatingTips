@@ -11,6 +11,7 @@
 #import "HomeViewController.h"
 #import "IAPManager.h"
 #import "CoreDataManager.h"
+#import "HistoryViewController.h"
 
 @interface LoadingViewController ()
 
@@ -78,9 +79,9 @@
 -(void)downloadFreeTips
 {
     //download daylitips
-    [[CommunicationManager sharedProvider] getDailyTips:^(NSArray *tips, NSError *error) {
-        if (tips) {
-            [[CoreDataManager sharedManager] updateTipsWithJSONArray:tips];
+    [[CommunicationManager sharedProvider] getDailyTips:^(NSArray *tips,NSDate* date,  NSError *error) {
+        if (tips && date) {
+            [[CoreDataManager sharedManager] updateTipsWithJSONArray:tips forDate:date];
             [UIView animateWithDuration:0.3 animations:^{
                 [self.showMeATipButton setHidden:NO];
             }];
@@ -97,8 +98,11 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if([segue.identifier isEqualToString:@"ShowHomeViewControllerSegue"]){
-        [(HomeViewController*)segue.destinationViewController setDocument:[[CoreDataManager sharedManager] document]];
+        [(HomeViewController*)segue.destinationViewController setDocument:self.document];
         [(HomeViewController*)segue.destinationViewController setInAppPurchaseProducts:self.inAppPurchaseProducts];
+    }
+    if([segue.identifier isEqualToString:@"historyViewControllerSegue"]){
+        [(HistoryViewController*)segue.destinationViewController setDocument:self.document];
     }
 }
 

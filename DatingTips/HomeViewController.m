@@ -30,7 +30,9 @@
     [super viewDidLoad];
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
-    [self.dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [self.dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];
+    [self.dateFormatter setDateFormat:@"yyyy MM dd"];
+    
     [self.navigationController.navigationBar setHidden:YES];
     
     UINib* tipCellNib = [UINib nibWithNibName:@"TipCell" bundle:nil];
@@ -52,10 +54,52 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(NSDate*)fetchMaxDateInContext:(NSManagedObjectContext*)context
+{
+    NSExpression *keyPathExpression = [NSExpression expressionForKeyPath:@"date"];
+    NSExpression *maxDateExpression = [NSExpression expressionForFunction:@"max:"
+                                                                arguments:[NSArray arrayWithObject:keyPathExpression]];
+    
+    NSExpressionDescription *expressionDescription = [[NSExpressionDescription alloc] init];
+    [expressionDescription setName:@"maxDate"];
+    [expressionDescription setExpression:maxDateExpression];
+    [expressionDescription setExpressionResultType:NSDateAttributeType];
+    
+    NSFetchRequest* getMaxDateRequest = [NSFetchRequest fetchRequestWithEntityName:@"Tip"];
+    [getMaxDateRequest setResultType:NSDictionaryResultType];
+    
+    [getMaxDateRequest setPropertiesToFetch:[NSArray arrayWithObject:expressionDescription]];
+
+    // Execute the fetch.
+    NSError *error = nil;
+    NSArray *objects = [context executeFetchRequest:getMaxDateRequest error:&error];
+    if (objects == nil) {
+        // Handle the error.
+        return nil;
+    }
+    else {
+        if ([objects count] > 0) {
+            NSDate* result = [[objects objectAtIndex:0] valueForKey:@"maxDate"];
+            NSLog(@"Minimum date: %@", result);
+            return result;
+        }
+    }
+
+    return nil;
+}
+
 - (void)setupFetchedResultsController
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Tip"];
+
+    NSDate* maxDate = [self fetchMaxDateInContext:self.document.managedObjectContext];
+    if (!maxDate) {
+        return;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date == %@", maxDate];
+    [request setPredicate:predicate];
     NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"tipId" ascending:YES];
+    
     request.sortDescriptors = @[ sortDescriptor1];
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                         managedObjectContext:self.document.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
@@ -123,6 +167,9 @@
     Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString* title = currentTip.tipDescription;
     [(TipCell*)cell setupCellWithTip:title];
+    NSString* dateString = [self.dateFormatter stringFromDate:currentTip.date];
+    [[(TipCell*)cell dayLabel] setText:dateString];
+    
     return cell;
 }
 

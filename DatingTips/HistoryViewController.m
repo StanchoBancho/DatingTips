@@ -9,11 +9,12 @@
 #import "HistoryViewController.h"
 #import "LoadingViewController.h"
 #import "TipCell.h"
+#import "Tip.h"
 
 @interface HistoryViewController ()
-@property (nonatomic, strong) IBOutlet UITableView* tableView;
-@property (nonatomic, strong) NSArray* dataSource;
 
+@property (nonatomic, strong) IBOutlet UITableView* tableView;
+@property (nonatomic, strong) NSDateFormatter* dateFormatter;
 @end
 
 @implementation HistoryViewController
@@ -31,19 +32,30 @@
 {
     [super viewDidLoad];
     [self.navigationController.navigationBar setHidden:YES];
+ 
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.dateFormatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US"]];
+    [self.dateFormatter setDateFormat:@"yyyy MM dd"];
+    
     UINib* tipCellNib = [UINib nibWithNibName:@"TipCell" bundle:nil];
     [self.tableView registerNib:tipCellNib forCellReuseIdentifier:@"TipCell"];
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)setupFetchedResultsController
 {
-    NSUserDefaults* standardDefaults = [NSUserDefaults standardUserDefaults];
-    NSArray* currentTips = [standardDefaults objectForKey:@"all_tips"];
-    if(currentTips){
-        self.dataSource = currentTips;
-    }
-    else{
-        self.dataSource = @[];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Tip"];
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES];
+    
+    request.sortDescriptors = @[ sortDescriptor1];
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                        managedObjectContext:self.document.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+}
+
+- (void)setDocument:(UIManagedDocument *)document;
+{
+    if (_document != document) {
+        _document = document;
+        [self setupFetchedResultsController];
     }
 }
 
@@ -62,16 +74,17 @@
 
 #pragma mark - Table View Data Source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return [self.dataSource count];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell* cell = nil;
     cell = [tableView dequeueReusableCellWithIdentifier:@"TipCell"];
-    NSString* title = [self.dataSource objectAtIndex:[indexPath row]];
+
+    Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSString* title = currentTip.tipDescription;
+    [(TipCell*)cell setupCellWithTip:title];
+    NSString* dateString = [self.dateFormatter stringFromDate:currentTip.date];
+    [[(TipCell*)cell dayLabel] setText:dateString];
+
     [(TipCell*)cell setupCellWithTip:title];
     return cell;
 }
@@ -79,7 +92,8 @@
 #pragma mark - Table View Delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat result = [TipCell cellHeightForTip:self.dataSource[indexPath.row]];
+    Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    CGFloat result = [TipCell cellHeightForTip:currentTip.tipDescription];
     return result;
 }
 

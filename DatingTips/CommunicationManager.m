@@ -15,12 +15,11 @@
 static CommunicationManager* sharedManager = nil;
 NSString* urlSecret;
 
-@interface CommunicationManager ()<SKProductsRequestDelegate>
+@interface CommunicationManager ()
 
 @property (nonatomic, strong) dispatch_queue_t workingQueue;
 @property (atomic, strong) NSString* password;
 @property (atomic, strong) NSString* sessionId;
-@property (nonatomic, strong) void(^getTipsIdsCompletionBlock)(NSArray* tipsIds, NSError* error);
 
 @end
 
@@ -153,7 +152,7 @@ NSString* urlSecret;
     }
 }
 
--(NSArray*)downloadTips:(NSError**)error
+-(NSDictionary*)downloadTips:(NSError**)error
 {
     //create and send the request for the tips
     NSURL* url = [NSURL URLWithString:kURLGetTips];
@@ -176,10 +175,15 @@ NSString* urlSecret;
         NSLog(@"tips data is:%@",json);
         
         NSArray* tips = [json objectForKey:@"tips"];
-        if(!tips){
+        NSString* dateString = [json objectForKey: @"date"];
+        if(!tips || !dateString){
             *error = [NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"We have some comunication problems. Can`t get tips data"}];
         }
-        return tips;
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate* date = [dateFormatter dateFromString:dateString];
+        NSDictionary* result = @{@"tips":tips, @"date":date};
+        return result;
     }
     return nil;
 }
@@ -208,7 +212,7 @@ NSString* urlSecret;
 
 #pragma mark - Public Methods
 
-- (void)getDailyTips:(void(^)(NSArray* tips, NSError* error))completion
+- (void)getDailyTips:(void(^)(NSArray* tips, NSDate* forDate, NSError* error))completion
 {
     dispatch_sync(self.workingQueue, ^{
         
@@ -218,7 +222,7 @@ NSString* urlSecret;
         if (error) {
             if(completion){
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil, error);
+                    completion(nil, nil, error);
                 });
             }
             return;
@@ -226,96 +230,24 @@ NSString* urlSecret;
         
         //download tips
         NSError* downloadingTipsError = nil;
-        NSArray* tips = [self downloadTips:&downloadingTipsError];
-        if(!tips || downloadingTipsError){
+        NSDictionary* tipsInfo = [self downloadTips:&downloadingTipsError];
+        if(!tipsInfo || downloadingTipsError){
             if(completion){
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil, downloadingTipsError);
+                    completion(nil, nil, downloadingTipsError);
                 });
             }
         }
         else{
             if(completion){
+                NSArray* tips = [tipsInfo objectForKey:@"tips"];
+                NSDate* date = [tipsInfo objectForKey:@"date"];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(tips, nil);
+                    completion(tips, date, nil);
                 });
             }
         }
     });
-}
-
-- (void)getPayedTipsIdentifiers:(void(^)(NSArray* tipsIds, NSError* error))completion
-{
-    dispatch_sync(self.workingQueue, ^{
-        
-        //verify we have all the needed credentials
-        NSError* error = nil;
-        [self doOrdinarySecurityChecksAndRequestsIfNecessary:&error];
-        if (error) {
-            if(completion){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil, error);
-                });
-            }
-            return;
-        }
-        
-        //download tip identifiers
-#warning TO USE NOT DOWNLOAD TIPS BUT DOWNLOAD TIPS IDS METHOD
-        NSError* downloadingTipsError = nil;
-        NSArray* tipsIds = [self downloadTips:&downloadingTipsError];
-        if(!tipsIds || downloadingTipsError){
-            if(completion){
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    completion(nil, downloadingTipsError);
-                });
-            }
-        }
-        else{
-            //ok we have the ids, veryfy them
-            if(completion){
-                if(!self.getTipsIdsCompletionBlock){
-                    self.getTipsIdsCompletionBlock = completion;
-                    [self validateProductIdentifiers:tipsIds];
-                }
-                else{
-                    NSError *e =[NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"Cannot get tips ids twice at the same time... We are currently getting them"}];
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        completion(nil, e);
-                    });
-                }
-            }
-        }
-    });
-}
-
-#pragma mark - Store Kit
-
--(void)validateProductIdentifiers:(NSArray *)productIdentifiers
-{
-    SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productIdentifiers]];
-    productsRequest.delegate = self;
-    [productsRequest start];
-}
-
-// SKProductsRequestDelegate protocol method
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
-{
-    //self.products = response.products;
-    BOOL areTipsOk = YES;
-    for (NSString * invalidProductIdentifier in response.invalidProductIdentifiers) {
-        // Handle any invalid product identifiers.
-        areTipsOk = NO;
-    }
-    
-    if(areTipsOk){
-        self.getTipsIdsCompletionBlock(response.products, nil);
-    }
-    else{
-         NSError *e =[NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"The tips' ids are not valid"}];
-        self.getTipsIdsCompletionBlock(nil, e);
-    }
-    self.getTipsIdsCompletionBlock = nil;
 }
 
 @end

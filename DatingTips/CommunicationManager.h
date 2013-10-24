@@ -14,7 +14,6 @@
 
 @property (nonatomic, strong) UIManagedDocument *document;
 
-- (void)getDailyTips:(void(^)(NSArray* tips, NSError* error))completion;
-- (void)getPayedTipsIdentifiers:(void(^)(NSArray* tipsIds, NSError* error))completion;
+- (void)getDailyTips:(void(^)(NSArray* tips, NSDate* forDate, NSError* error))completion;
 
 @end
