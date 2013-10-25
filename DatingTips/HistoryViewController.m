@@ -81,11 +81,9 @@
 
     Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString* title = currentTip.tipDescription;
-    [(TipCell*)cell setupCellWithTip:title];
+    [(TipCell*)cell setupCellWithTip:title andTags:currentTip.tags];
     NSString* dateString = [self.dateFormatter stringFromDate:currentTip.date];
     [[(TipCell*)cell dayLabel] setText:dateString];
-
-    [(TipCell*)cell setupCellWithTip:title];
     return cell;
 }
 
@@ -93,7 +91,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    CGFloat result = [TipCell cellHeightForTip:currentTip.tipDescription];
+    CGFloat result = [TipCell cellHeightForTip:currentTip.tipDescription andTags:currentTip.tags];
     return result;
 }
 

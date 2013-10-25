@@ -166,7 +166,7 @@
     cell = [tableView dequeueReusableCellWithIdentifier:@"TipCell"];
     Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString* title = currentTip.tipDescription;
-    [(TipCell*)cell setupCellWithTip:title];
+    [(TipCell*)cell setupCellWithTip:title andTags:currentTip.tags];    
     NSString* dateString = [self.dateFormatter stringFromDate:currentTip.date];
     [[(TipCell*)cell dayLabel] setText:dateString];
     
@@ -181,7 +181,7 @@
     }
     Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    CGFloat result = [TipCell cellHeightForTip:currentTip.tipDescription];
+    CGFloat result = [TipCell cellHeightForTip:currentTip.tipDescription andTags:currentTip.tags];
     return result;
 }
 

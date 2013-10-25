@@ -16,6 +16,6 @@
 @property (nonatomic, strong) IBOutlet UILabel* dayLabel;
 @property (nonatomic, strong) IBOutlet UILabel* tagsLabel;
 
--(void)setupCellWithTip:(NSString*)tipTitle;
-+(CGFloat)cellHeightForTip:(NSString*)tipTitle;
+-(void)setupCellWithTip:(NSString*)tipTitle andTags:(NSSet*)tags;
++(CGFloat)cellHeightForTip:(NSString*)tipTitle andTags:(NSSet*)tags;
 @end
