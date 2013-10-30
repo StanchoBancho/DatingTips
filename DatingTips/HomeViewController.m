@@ -46,6 +46,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(productPurchased:) name:IAPHelperProductPurchasedNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,6 +134,9 @@
 
 -(IBAction)getAnotherButtonPressed:(id)sender
 {
+    NSInteger indexInProducts = [(UIButton*)sender tag];
+    SKProduct* selectedProduct = self.inAppPurchaseProducts[indexInProducts];
+    [[IAPManager sharedInstance] buyProduct:selectedProduct];
 }
 
 -(IBAction)backButtonPressed:(id)sender
@@ -150,19 +159,20 @@
 {
     UITableViewCell* cell = nil;
     if(indexPath.row >= self.numberOfTips){
+        //get the SKProdukt
         NSInteger indexInProducts = [indexPath row] - self.numberOfTips;
-        cell = [tableView dequeueReusableCellWithIdentifier:@"BuyTipCell"];
-        [[(BuyTipCell*)cell getAnotherButton] addTarget:self action:@selector(getAnotherButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-        
         SKProduct* selectedProduct = self.inAppPurchaseProducts[indexInProducts];
         NSString* buttonTitle = [NSString stringWithFormat:@"%@ - %.2f",selectedProduct.localizedTitle, selectedProduct.price.floatValue];
-        
+
+        //setup the cell
+        cell = [tableView dequeueReusableCellWithIdentifier:@"BuyTipCell"];
+        [[(BuyTipCell*)cell getAnotherButton] setTag:indexInProducts];
+        [[(BuyTipCell*)cell getAnotherButton] addTarget:self action:@selector(getAnotherButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [[(BuyTipCell*)cell getAnotherButton] setTitle:buttonTitle forState:UIControlStateNormal];
         [[(BuyTipCell*)cell getAnotherButton] setTitle:buttonTitle forState:UIControlStateHighlighted];
-
         return cell;
     }
-    
+    //setup tip cell
     cell = [tableView dequeueReusableCellWithIdentifier:@"TipCell"];
     Tip* currentTip = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSString* title = currentTip.tipDescription;
@@ -206,6 +216,14 @@
     NSString* todayInString = [self.dateFormatter stringFromDate:[NSDate date]];
     BOOL result = ![defaults boolForKey:todayInString];
     return result;
+}
+
+- (void)productPurchased:(NSNotification *)notification {
+    NSError* error = nil;
+    [self.fetchedResultsController performFetch:&error];
+    if (error) {
+        NSLog(@"setFetchedResultsController: %@ (%@)", [error localizedDescription], [error localizedFailureReason]);
+    }
 }
 
 @end

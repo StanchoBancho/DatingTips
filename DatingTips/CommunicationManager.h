@@ -16,4 +16,6 @@
 
 - (void)getDailyTips:(void(^)(NSArray* tips, NSDate* forDate, NSError* error))completion;
 
+- (void)getPayedTipsWithReceiptData:(NSData*)receiptData andCopletion:(void(^)(NSArray* tips, NSDate* forDate, NSError* error))completion ;
+
 @end

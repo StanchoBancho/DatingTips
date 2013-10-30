@@ -13,7 +13,7 @@
 #define kPassCryptKey @"MainStoryboard.storyboard"
 #define kURLStartSession @"http://darkstar.weblunatix.net/tisho/tips/start_session"
 #define kURLGetTips @"http://darkstar.weblunatix.net/tisho/tips/get_tips"
-
+#define kURLGetPayedTips @"http://darkstar.weblunatix.net/tisho/tips/payment_verify"
 
 #endif
 

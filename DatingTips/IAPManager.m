@@ -7,6 +7,8 @@
 //
 
 #import "IAPManager.h"
+#import "CommunicationManager.h"
+#import "CoreDataManager.h"
 
 NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurchasedNotification";
 
@@ -129,16 +131,26 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
         receiptData = [NSData dataWithContentsOfURL:[[NSBundle mainBundle] appStoreReceiptURL]];
     }
     NSString *productIdentifier = transaction.payment.productIdentifier;
-    
-    //make request for productIdentifier with receipt data
-    
-    
-    [_purchasedProductIdentifiers addObject:productIdentifier];
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSNotificationCenter defaultCenter] postNotificationName:IAPHelperProductPurchasedNotification object:productIdentifier userInfo:nil];
-    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 
+    //make request for productIdentifier with receipt data
+    [[CommunicationManager sharedProvider] getPayedTipsWithReceiptData:receiptData andCopletion:^(NSArray *tips, NSDate *forDate, NSError *error) {
+        
+        if (tips && forDate) {
+            [[CoreDataManager sharedManager] updateTipsWithJSONArray:tips forDate:forDate];
+
+//            [_purchasedProductIdentifiers addObject:productIdentifier];
+//            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:productIdentifier];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSNotificationCenter defaultCenter] postNotificationName:IAPHelperProductPurchasedNotification object:productIdentifier userInfo:nil];
+            [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+        }
+        
+        
+    }];
+    
+    
+    
+    
 }
 
 #pragma mark - Utility methods

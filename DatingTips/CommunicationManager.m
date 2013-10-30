@@ -11,6 +11,7 @@
 #import "Constants.h"
 #import "NSData+AES.h"
 #import <StoreKit/StoreKit.h>
+#import "NSData+Base64.h"
 
 static CommunicationManager* sharedManager = nil;
 NSString* urlSecret;
@@ -78,6 +79,7 @@ NSString* urlSecret;
     NSURL* url = [NSURL URLWithString:kURLAskForPassword];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSString* deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString* appSecret = [[NSString stringWithFormat:@"%@%@", deviceId, urlSecret] stingToSHA1];
     NSString* bodyString = [NSString stringWithFormat:@"id=%@&appSecret=%@",deviceId, appSecret];
@@ -123,6 +125,7 @@ NSString* urlSecret;
     NSURL* url = [NSURL URLWithString:kURLStartSession];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     NSString* deviceId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
     NSString* deviceIdAndPassSha1 = [[NSString stringWithFormat:@"%@%@", deviceId, self.password] stingToSHA1];
     NSString* bodyString = [NSString stringWithFormat:@"user=%@&pass=%@",deviceId, deviceIdAndPassSha1];
@@ -158,6 +161,7 @@ NSString* urlSecret;
     NSURL* url = [NSURL URLWithString:kURLGetTips];
     NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
     [request setHTTPMethod:@"POST"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
     [request setValue:self.sessionId forHTTPHeaderField:@"X-APP-SESSION"];
     
     NSData* tipsData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
@@ -210,6 +214,96 @@ NSString* urlSecret;
     }
 }
 
+
+- (NSString*)base64forData:(NSData*)theData {
+    const uint8_t* input = (const uint8_t*)[theData bytes];
+    NSInteger length = [theData length];
+    static char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    NSMutableData* data = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
+    uint8_t* output = (uint8_t*)data.mutableBytes;
+    NSInteger i;
+    for (i=0; i < length; i += 3) {
+        NSInteger value = 0;
+        NSInteger j;
+        for (j = i; j < (i + 3); j++) {
+            value <<= 8;
+            
+            if (j < length) {
+                value |= (0xFF & input[j]);
+            }
+        }
+        NSInteger theIndex = (i / 3) * 4;
+        output[theIndex + 0] =                    table[(value >> 18) & 0x3F];
+        output[theIndex + 1] =                    table[(value >> 12) & 0x3F];
+        output[theIndex + 2] = (i + 1) < length ? table[(value >> 6)  & 0x3F] : '=';
+        output[theIndex + 3] = (i + 2) < length ? table[(value >> 0)  & 0x3F] : '=';
+    }
+    return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+}
+
+- (NSDictionary *) getDictionaryFromJsonString:(NSString *)jsonstring {
+    NSError *jsonError;
+    NSDictionary *dictionary = (NSDictionary *) [NSJSONSerialization JSONObjectWithData:[jsonstring dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&jsonError];
+    if (jsonError) {
+        dictionary = [[NSDictionary alloc] init];
+    }
+    return dictionary;
+}
+
+
+-(NSDictionary*)downloadPayedTips:(NSError**)error withReceiptData:(NSData*)receiptData
+{
+    //create and send the request for the tips
+    NSURL* url = [NSURL URLWithString:kURLGetPayedTips];
+    NSMutableURLRequest* request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"POST"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringLocalCacheData];
+    [request setValue:self.sessionId forHTTPHeaderField:@"X-APP-SESSION"];
+
+    //set the receipt
+    NSString* receiptDataString = [self base64forData:receiptData];
+    NSDictionary* receiptDataDict = @{@"receipt-data":receiptDataString};
+    NSError*jsonCreateError = nil;
+    NSData* data = [NSJSONSerialization dataWithJSONObject:receiptDataDict options:0 error:&jsonCreateError];
+    if (jsonCreateError || !data)
+    {
+        *error = jsonCreateError;
+        return nil;
+    }
+    NSString* postString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    [request setValue:postString forHTTPHeaderField:@"payment"];
+    
+    NSData* tipsData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
+    if(!*error){
+        if(!tipsData){
+            *error = [NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"We have some comunication problems. Can`t get payed tips data"}];
+            return nil;
+        }
+        //parse the data
+        NSError* parseError = nil;
+        NSString* string = [[NSString alloc] initWithData:tipsData encoding:NSUTF8StringEncoding];
+        NSLog(@"the row data is %@", string);
+        
+        NSDictionary* json = [NSJSONSerialization JSONObjectWithData:tipsData options:NSJSONReadingMutableLeaves error:&parseError];
+        NSLog(@"tips data is:%@",json);
+        
+        NSArray* tips = [json objectForKey:@"tips"];
+        NSString* dateString = [json objectForKey: @"date"];
+        if(!tips || !dateString){
+            *error = [NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"We have some comunication problems. Can`t get payed tips data"}];
+            return nil;
+        }
+        NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSDate* date = [dateFormatter dateFromString:dateString];
+        NSDictionary* result = @{@"tips":tips, @"date":date};
+        return result;
+    }
+    return nil;
+}
+
+
+
 #pragma mark - Public Methods
 
 - (void)getDailyTips:(void(^)(NSArray* tips, NSDate* forDate, NSError* error))completion
@@ -249,5 +343,43 @@ NSString* urlSecret;
         }
     });
 }
+
+
+- (void)getPayedTipsWithReceiptData:(NSData*)receiptData andCopletion:(void(^)(NSArray* tips, NSDate* forDate, NSError* error))completion
+{
+    //verify we have all the needed credentials
+    NSError* error = nil;
+    [self doOrdinarySecurityChecksAndRequestsIfNecessary:&error];
+    if (error) {
+        if(completion){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(nil, nil, error);
+            });
+        }
+        return;
+    }
+    //download tips
+    NSError* downloadingTipsError = nil;
+    NSDictionary* tipsInfo = [self downloadPayedTips:&downloadingTipsError withReceiptData:receiptData];
+    if(!tipsInfo || downloadingTipsError){
+        if(completion){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(nil, nil, downloadingTipsError);
+            });
+        }
+    }
+    else{
+        if(completion){
+            NSArray* tips = [tipsInfo objectForKey:@"tips"];
+            NSDate* date = [tipsInfo objectForKey:@"date"];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(tips, date, nil);
+            });
+        }
+    }
+
+
+}
+
 
 @end
