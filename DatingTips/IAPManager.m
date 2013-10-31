@@ -143,9 +143,7 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
 //            [[NSUserDefaults standardUserDefaults] synchronize];
             [[NSNotificationCenter defaultCenter] postNotificationName:IAPHelperProductPurchasedNotification object:productIdentifier userInfo:nil];
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-        }
-        
-        
+        }        
     }];
     
     

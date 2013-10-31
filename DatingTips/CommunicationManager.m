@@ -182,6 +182,7 @@ NSString* urlSecret;
         NSString* dateString = [json objectForKey: @"date"];
         if(!tips || !dateString){
             *error = [NSError errorWithDomain:@"CommunicationManager" code:0 userInfo:@{@"Info": @"We have some comunication problems. Can`t get tips data"}];
+            return nil;
         }
         NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
         [dateFormatter setDateFormat:@"yyyy-MM-dd"];
@@ -262,16 +263,9 @@ NSString* urlSecret;
 
     //set the receipt
     NSString* receiptDataString = [self base64forData:receiptData];
-    NSDictionary* receiptDataDict = @{@"receipt-data":receiptDataString};
-    NSError*jsonCreateError = nil;
-    NSData* data = [NSJSONSerialization dataWithJSONObject:receiptDataDict options:0 error:&jsonCreateError];
-    if (jsonCreateError || !data)
-    {
-        *error = jsonCreateError;
-        return nil;
-    }
-    NSString* postString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    [request setValue:postString forHTTPHeaderField:@"payment"];
+    NSString* requestBodyString = [NSString stringWithFormat:@"receipt=%@",receiptDataString];
+    NSData* bodyData = [requestBodyString dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:bodyData];
     
     NSData* tipsData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
     if(!*error){
