@@ -33,10 +33,10 @@ NSString *const IAPHelperProductPurchasedNotification = @"IAPHelperProductPurcha
     static IAPManager * sharedInstance;
     dispatch_once(&once, ^{
         NSSet * productIdentifiers = [NSSet setWithObjects:
-                                      @"com.stanimirnikolov.datingtips.onetip",
-                                      @"com.stanimirnikolov.datingtips.seventips",
-                                      @"com.stanimirnikolov.datingtips.fourteentips",
-                                      @"com.stanimirnikolov.datingtips.thirtytips",
+                                      @"com.stanimirnikolov.datingtips.one_tip",
+//                                      @"com.stanimirnikolov.datingtips.seventips",
+//                                      @"com.stanimirnikolov.datingtips.fourteentips",
+//                                      @"com.stanimirnikolov.datingtips.thirtytips",
                                       nil];
         sharedInstance = [[self alloc] initWithProductIdentifiers:productIdentifiers];
     });
