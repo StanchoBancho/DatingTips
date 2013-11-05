@@ -262,10 +262,20 @@ NSString* urlSecret;
     [request setValue:self.sessionId forHTTPHeaderField:@"X-APP-SESSION"];
 
     //set the receipt
-    NSString* receiptDataString = [self base64forData:receiptData];
-    NSString* requestBodyString = [NSString stringWithFormat:@"receipt=%@",receiptDataString];
-    NSData* bodyData = [requestBodyString dataUsingEncoding:NSUTF8StringEncoding];
-    [request setHTTPBody:bodyData];
+    //NSString* receiptDataString = [self base64forData:receiptData];
+    
+    NSString *receiptBase64String = [self encodeBase64:(uint8_t *)receiptData.bytes
+                                             length:receiptData.length];
+
+//    NSDictionary* dict = @{@"receipt-data":receiptBase64String};
+//    NSData* jsonStringData =[NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
+    
+    
+    NSData* data = [receiptBase64String dataUsingEncoding:NSUTF8StringEncoding];
+    
+//    NSString* requestBodyString = [NSString stringWithFormat:@"payment={\"receipt-data\" : \"%@\"}",jsonObjectString];
+//    NSData* bodyData = [requestBodyString dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPBody:data];
     
     NSData* tipsData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:error];
     if(!*error){
@@ -294,6 +304,32 @@ NSString* urlSecret;
         return result;
     }
     return nil;
+}
+
+#pragma mark
+#pragma mark Base 64 encoding
+
+- (NSString *)encodeBase64:(const uint8_t *)input length:(NSInteger)length
+{
+    NSData * data = [NSData dataWithBytes:input length:length];
+    return [data base64EncodedString];
+}
+
+
+- (NSString *)decodeBase64:(NSString *)input length:(NSInteger *)length
+{
+    NSData * data = [NSData dataFromBase64String:input];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+}
+
+char* base64_encode(const void* buf, size_t size) {
+    size_t outputLength;
+    return NewBase64Encode(buf, size, NO, &outputLength);
+}
+
+void * base64_decode(const char* s, size_t * data_len)
+{
+    return NewBase64Decode(s, strlen(s), data_len);
 }
 
 
