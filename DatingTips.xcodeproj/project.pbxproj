@@ -47,7 +47,6 @@
 		2EEC69B3173E8C21007200A4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2EEC69B1173E8C21007200A4 /* MainStoryboard.storyboard */; };
 		2EEC69B6173E8C21007200A4 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC69B5173E8C21007200A4 /* LoadingViewController.m */; };
 		2EEC69C1173E8D89007200A4 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEC69C0173E8D89007200A4 /* HomeViewController.m */; };
-		2EEF124A18210AF20082638A /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEF124918210AF20082638A /* NSData+Base64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2EFAFA5E17F033C80006D9FE /* BannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EFAFA5D17F033C80006D9FE /* BannerViewController.m */; };
 		36252C4E642B4CE8B3FB29B7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19EA3BF850C248449BC4E0B8 /* libPods.a */; };
 		C745C6EF174FDFCB0087E704 /* container.png in Resources */ = {isa = PBXBuildFile; fileRef = C745C6ED174FDFCB0087E704 /* container.png */; };
@@ -120,8 +119,6 @@
 		2EEC69B5173E8C21007200A4 /* LoadingViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
 		2EEC69BF173E8D89007200A4 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		2EEC69C0173E8D89007200A4 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		2EEF124818210AF20082638A /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		2EEF124918210AF20082638A /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		2EFAFA5C17F033C80006D9FE /* BannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerViewController.h; sourceTree = "<group>"; };
 		2EFAFA5D17F033C80006D9FE /* BannerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerViewController.m; sourceTree = "<group>"; };
 		45256BD26EEE4010AAA35385 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -178,8 +175,6 @@
 		2EA6D5C517F712E100D5D358 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				2EEF124818210AF20082638A /* NSData+Base64.h */,
-				2EEF124918210AF20082638A /* NSData+Base64.m */,
 				2EA6D5C617F712F300D5D358 /* cipher.h */,
 				2EA6D5C717F712F300D5D358 /* cipher.m */,
 				2EA6D5C817F712F300D5D358 /* NSData+AES.h */,
@@ -475,7 +470,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2EEF124A18210AF20082638A /* NSData+Base64.m in Sources */,
 				2EEC69A6173E8C21007200A4 /* main.m in Sources */,
 				2E15F38B18093B330052E6B5 /* CoreDataManager.m in Sources */,
 				2EEC69AA173E8C21007200A4 /* AppDelegate.m in Sources */,
